@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    
+    <script>
+        let box = document.querySelector('.box');
+
+        box.onclick = function() {
+            move(this, 'left', 200, () => {
+                console.log(1)
+                move(box, 'top', 200, () => {
+                    console.log(2)
+                    move(box, 'left', 0, () => {
+                        console.log(3)
+                        move(box, 'top', 0, () => {
+                            console.log(4)
+                        })
+                    })
+                })
+            })
+        }
+
+        
+        function move(ele, attr, target, cb) {
+            let start = parseInt(getComputedStyle(ele)[attr]);
+            let direction = (target-start)/Math.abs(target-start);
+            const speed = direction*5;
+
+            let timer = null;
+            // go()
+            // function go() {
+            //     let now = parseInt(getComputedStyle(ele)[attr]);
+            //     if(now === target) {
+            //         return
+            //     } else {
+            //         ele.style[attr] = now + speed + 'px';
+            //         setTimeout(go, 16.7)
+            //     }
+            // }
+            // go()
+            requestAnimationFrame(go)
+            function go() {
+                let now = parseInt(getComputedStyle(ele)[attr]);
+                if(now === target) {
+                    // return
+                    cb && cb()
+                } else {
+                    ele.style[attr] = now + speed + 'px';
+                    requestAnimationFrame(go)
+                }
+            }
+        }
+    </script>
+</body>
+</html>

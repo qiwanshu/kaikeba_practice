@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // await 后面必须跟Promise
+        fn()
+        async function fn() {
+            // await new Promise((resolve, reject) => {
+            //     setTimeout(() => {
+            //         resolve('1')
+            //     }, 500)
+            // }).then((info)=> {
+            //     console.log(info)
+            // })
+
+            // new Promise((resolve, reject) => {
+            //     setTimeout(() => {
+            //         resolve('2')
+            //     }, 1500)
+            // }).then((info)=> {
+            //     console.log(info)
+            // })
+
+            // await new Promise((resolve, reject) => {
+            //     setTimeout(() => {
+            //         resolve('3')
+            //     }, 1000)
+            // }).then((info)=> {
+            //     console.log(info)
+            // })
+
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('1')
+                    // resolve('1')
+                }, 500)
+            })
+
+            new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('2')
+                    resolve('2')
+                }, 1500)
+            })
+
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('3')
+                    resolve('3')
+                }, 1000)
+            })
+        }
+    </script>
+</body>
+</html>

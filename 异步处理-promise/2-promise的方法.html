@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /*
+            promise的方法
+                -resolve: 返回一个以给定值解析后的Promise 对象
+                    参见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve
+                -reject：返回一个带有拒绝原因reason参数的Promise对象。
+                    参见：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject
+                -all: 所有实例的状态都是resolve，才会成功
+                -race：哪个实例最快执行完毕，就是该实例的结果
+        */
+
+        let p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('first')
+            }, 1000)
+        })
+        let p2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('second')
+            }, 1500)
+        })
+        let p3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('third')
+                // reject('third-err')
+            }, 500)
+        })
+
+        // let allP = Promise.all([p1,p2,p3]);
+        // allP.then((info) => {
+        //     console.log(info)
+        // }, (error) => {
+        //     console.log(error)
+        // })
+
+        // let raceP = Promise.race([p1,p2,p3])
+        // raceP.then((info) => {
+        //     console.log(info)
+        // },(error) => {
+        //     console.log(error)
+        // })
+
+        // let promiseRes = Promise.resolve('123')
+        // promiseRes.then((info)=>{
+        //     console.log(info)
+        // })
+
+        let promiseRej = Promise.reject('456');
+        promiseRej.then(() => {
+
+        }, (error) => {
+            console.log(error)
+        })
+
+    </script>
+</body>
+</html>
