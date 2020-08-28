@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            - 不可迭代对象不能使用for...of
+            - 迭代器返回的对象中必须有一个属性是next方法
+        */
+        let obj = {
+            a: '1',
+            b: '2',
+            c: '3',
+            d: '4',
+        }
+        // console.dir(obj)   
+
+        // 希望对像也能使用for...of， 需要给对象添加迭代器方法
+        // obj[Symbol.iterator] = function () {    // Result of the Symbol.iterator method is not an object（迭代器方法需要返回一个对象）
+        //     return {             // undefined is not a function（参见上面第二条）
+        //         next() {     // Iterator result undefined is not an object（next方法还需要返回一个对象，返回值上面必须有两个属性 done 和 value）
+        //             return {
+        //                 value: 1,   // 循环过程中的值
+        //                 done:  false  // 是否遍历迭代完成，false代表一直没有循环完成(死循环)
+        //             }
+        //         }
+        //     }
+        // }
+
+        // 完整版迭代器
+        obj[Symbol.iterator] = function () {
+
+            // 迭代协议(按照value值迭代，按照key值迭代，都可以)
+            // console.log(obj)
+            // let keys = Object.keys(obj)
+            let values = Object.values(obj)   // 获取对象中所有的value组成的数组
+            // console.log(values)
+            let index = 0  // 设置index初始值，一开始是从0 开始循环
+
+            return {
+                next() {
+                    if (index >= values.length) {
+                        return {
+                            done: true
+                        }
+                    } else {
+                        return {
+                            done: false,
+                            value: values[index++]
+                        }
+                    }
+                }
+            }
+        }
+
+        let iterator = obj[Symbol.iterator]()   //执行迭代器方法
+        // console.log(iterator)
+        // console.log(iterator.next())
+        // console.log(iterator.next())
+        // console.log(iterator.next())
+        // console.log(iterator.next())
+        // console.log(iterator.next())
+
+        for (let val of obj) {    // for...of 的作用就是一直调用迭代器的next方法，直到循环结束
+            console.log(val)
+        }
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            - generator函数前面要加*号，这样浏览器才能知道这个函数是generator函数
+            - 函数里面有个yield， yield 里面定义的是每次循环里返回的值(即next方法，yield后面是值也就是next方法返回的value值)
+            - 调用generator函数时，不会立即执行（不会执行generator里面的东西），而是返回一个函数
+            - 如果想执行generator里面的东西，需要调用返回函数的next方法
+        */
+
+        function *fn() {
+            yield 1;
+            yield 2;
+            yield 3;
+        }
+        let f = fn()
+        // console.log(f)
+        // console.log(f.next())
+        // console.log(f.next())
+        // console.log(f.next())
+
+        // 使用for...of 循环
+        for(let val of f) {
+            console.log(val)
+        }
+
+    </script>
+</body>
+</html>

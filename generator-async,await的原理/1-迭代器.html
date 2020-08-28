@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            迭代协议： 规定了迭代与实现的逻辑
+            迭代器：具体的迭代实现逻辑
+            迭代对象：可被迭代的对象——实现了[Symbol.itetator]方法
+            迭代语句：
+                - for...in：以原始插入的顺序迭代对象的可枚举属性
+                - for...of：根据迭代对象的迭代器具体实现迭代对象数据
+        */
+
+
+
+        let arr = ['a', 'b', 'c', 'd'];
+        let obj = {
+            a: '1',
+            b: '2',
+            c: '3',
+            d: '4',
+        }
+
+        // for...in
+        // for(let attr in arr) {
+        //     console.log(attr)   // for...in 在循环中循环的是key值（对于数组来说，key 值就是下标）
+        // }
+
+        // for...of
+        // for (let val of arr) {
+        //     console.log(val)    // for...of 在循环中循环的是value值
+        // }
+        
+        // for (let val of obj) {     // 报错：obj is not iterabl（obj不是一个可迭代对象）
+        //     console.log(val)     
+        // }
+
+        /*
+            可迭代对象和不可迭代对象区别在于是否在上面定义了迭代器
+        */
+
+        console.dir(arr)   // 数组的原型上有一个 Symbol(Symbol.iterator)，即所谓的迭代器，有迭代器的对象就叫做可迭代对象
+        console.dir(obj)   // obj 的原型上并没有 Symbol(Symbol.iterator)这个方法
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /*
+            async await 原理
+        */
+
+        function *fn() {
+            yield new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('a');
+                    resolve(1)
+                }, 500)
+            });
+            yield new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('b');
+                    resolve(2)
+                }, 500)
+            });;
+            yield new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('c');
+                    resolve(3)
+                }, 500)
+            });;
+        }
+        
+        // fn()
+        let f = fn();
+
+        // for(let fn of f) {   // 使用for...of 三个函数会一块执行，我们期待它像async await一样一个一个执行
+        //     console.log(fn)
+        // }
+
+        // 封装函数自己实现调用过程
+        co(fn)
+        function co(fn) {
+            let f = fn();
+            // console.log(f)
+            next()
+            function next(data) {
+                let result = f.next()
+                // console.log(result)
+                if(!result.done) {    // 没有执行完，继续执行
+
+                    // 上一个异步走完，执行下一个异步
+                    result.value.then((info) => {
+                        console.log(info, data)
+                        next(info)
+                    })
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
