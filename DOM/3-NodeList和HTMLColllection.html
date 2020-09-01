@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box1">
+        <p>p1</p>
+        <h1>h1</h1>
+        <!--注释-->
+        <p>p2</p>
+        <h2>h2</h2>
+        <p>p3</p>
+        <p>p4</p>
+        <p>p5</p>
+    </div>
+
+    <script>
+        /*
+            NodeList
+                - childNodes
+                - querySelectorAll
+
+            HTMLCollection
+                - children
+                - getElementByTagName
+                - getElementByClassName
+
+            1. NodeList 有forEach方法，HTMLCollection 没有forEach方法
+            2. HTMLCollection 每次调用都会动态获取，NodeList中childNodes 会动态更新，querySelectorAll不会动态更新
+        */
+
+        const div = document.querySelector('div');
+        console.log(div)
+
+        // div.childNodes.forEach((item) => {
+        //     console.log(item)
+        // })
+        // div.children.forEach((item) => {
+        //     console.log(item)
+        // })
+
+        let nodes = div.childNodes
+        let nodes2 = div.querySelectorAll('p')
+        let children = div.children
+        console.log(nodes, children, nodes2);
+        div.innerHTML = ''
+        console.log(nodes, children, nodes2);
+
+
+    </script>
+</body>
+</html>

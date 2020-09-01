@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="data.js"></script>
+
+    <style>
+        #list ul ul{
+            display: none;
+        }
+        #list ul ul.show{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="list">
+        <!-- <ul>
+            <li>
+                <p>一级菜单</p>
+                <ul>
+                    <li>
+                        <p>二级菜单</p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>一级菜单</p>
+                <ul>
+                    <li>
+                        <p>二级菜单</p>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
+    </div>
+    
+    <script>
+        // 使用ECMA操作
+        // {
+        //     const list = document.querySelector('#list');
+        //     function render(data) {
+        //         let inner = '<ul>'
+        //         data.forEach((item, index) => {
+        //             inner += `
+        //                 <li>
+        //                     <p>${item.title}</p>
+        //                     ${
+        //                         getChildren(item.id)? render(getChildren(item.id)): ''
+        //                     }
+        //                 </li>
+        //             `
+        //         })
+        //         inner += '</ul>';
+        //         return inner
+        //     }
+        //     console.log(getChildren(-1))
+        //     console.log(render(getChildren(-1)))
+        //     list.innerHTML = render(getChildren(-1))
+
+        //     // 查找子级方法
+        //     function getChildren(id) {
+        //         return data2.filter(item => item.pid === id)
+        //     }
+        // }
+
+        // 使用DOM操作
+        {
+            const list = document.querySelector('#list');
+
+            function render(data) {
+                let ul = document.createElement('ul');
+                // let li = document.createElement('li');
+                // let p = document.createElement('p');
+                // p.innerHTML = 
+
+                data.forEach((item, index) => {
+                    let li = document.createElement('li');
+                    let p = document.createElement('p');
+                    p.innerHTML = item.title;
+                    p.onclick = function () {
+                        let pch = this.nextElementSibling;
+                        // console.log(pch)
+                        if(pch) {
+                            // pch.classList.toggle('show')
+                            if(pch.classList.contains('show')){
+                                pch.classList.remove('show')
+                            } else {
+                                let siblings = pch.parentNode.parentNode.querySelectorAll('ul');
+                                [...siblings].forEach(item => {
+                                    item.classList.remove('show')
+                                }) 
+                                pch.classList.add('show')
+                            }
+                        }
+                    }
+                    li.appendChild(p);
+                    if(getChildren(item.id).length > 0){
+                        li.appendChild(render(getChildren(item.id)))
+                    }
+                    ul.appendChild(li);
+                })
+                return ul
+                
+            }
+
+            list.appendChild(render(getChildren(-1)))
+            // console.log(getChildren(-1))
+
+            // 查找子级方法
+            function getChildren(id) {
+                return data.filter(item => item.pid === id)
+            }
+        }
+
+    </script>
+
+</body>
+</html>

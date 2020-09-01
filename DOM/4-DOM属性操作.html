@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box" class="box" kkb="DOM">
+        <div>div</div>
+    </div>
+
+    <script>
+        /*
+            . [] ,ECMAScript 的属性操作
+
+            DOM属性操作
+                - el.attributes 元素所有属性的集合
+                - el.getAttribute("attr") 获取属性
+                - el.setAttribute("attr","val") 设置属性
+                - el.removeAttribute("attr") 移出属性
+                - el.hasAttribute("attr") 判断是否有这个属性
+
+            DOM 属性操作和 ECMAScript 属性操作区别
+                - ECMA 属性操作的是元素获取之后编译成的对象，具体数据存在内存中，可以存储各种类型数据
+                - DOM 属性操作，值是存在文档中，类型只是能是字符串，不是字符串也会转成字符串
+        */
+        {
+            const box = document.querySelector('#box');
+            // console.log(box);
+
+            // 元素本身在获取之后，会转成一个对象，然后会把这个对象上的所有合法属性（W3C规定的元素的属性），都存到这个对象中
+            /*
+                合法属性可以通过ECMAScript进行操作
+            */
+
+            // console.dir(box);
+            // console.log(box.id)
+            // console.log(box.className)
+            // console.log(box.kkb)      // ECMAScript 操作无法获取自定义属性
+
+            // console.log(box.attributes)
+            // console.log(box.getAttribute('id'))
+            // // console.log(box.setAttribute('id','kkk'))
+            // console.log(box.removeAttribute('kkb'))
+            // console.log(box.hasAttribute('class'))
+
+
+            /*
+                使用ECMA设置的属性也只能通过ECMA获取
+                使用DOM操作设置的属性只能通过DOM获取
+            */
+            // box.index = 0;
+            // box.setAttribute('kkb', 0)
+            // console.log(typeof box.index)    // number
+            // console.log(typeof box.getAttribute('kkb'))   // string
+            // console.log(box.getAttribute('index'))
+            // console.log(box.kkb)
+
+
+
+            /*
+                只要操作了innerHTML 元素的所有子元素上，存在内存中的事件和相关的属性都会丢失。如果希望元素的某些属性在操作了父级的innerHTML 之后，还存在就把这个属性加在 DOM 中
+            */
+            let div = box.children[0];
+            div.index = 1;
+            div.setAttribute('kkb', 'miaov');
+            box.innerHTML = box.innerHTML;
+            console.log(box.children[0].index)
+            console.log(box.children[0].getAttribute('kkb'))
+        }
+    </script>
+</body>
+</html>

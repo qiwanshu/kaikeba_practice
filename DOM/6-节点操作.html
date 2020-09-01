@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box3 div{
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <p>ppp</p>
+    </div>
+    <div id="box2">
+        <p>p2</p>
+    </div>
+    <div id="box3">
+        <div>div</div>
+    </div>
+
+    <script>
+        /*
+            创建元素：createElement("tagName") 
+            添加节点：
+                - appendChild：parent.appendChild(node) 向parent中插入node，插入到最末尾
+                - insertBefore：parent.inserBefore(newNode, oldNode)
+
+            如果添加是一个页面上已经存在的节点，会先从原位置删除，然后在添加到新的位置去
+
+            替换节点
+                - parent.replaceChild(newNode, oldNode)
+
+            删除节点
+                - node.remove()，返回值undefined（没有返回值）
+                - parent.removeChild(node)，返回值是被删除的节点
+
+            克隆节点：node.cloneNode(deep), deep表示是否为深度克隆，默认为false
+        */
+        {
+            
+            let box = document.querySelector('#box');
+            let p1 = box.querySelector('p');
+
+            let h1 = document.createElement('h1');
+            // let leo = document.createElement('leo'); 
+            h1.innerHTML = 'H1'
+            // box.appendChild(h1)
+            // box.inserBefore(h1, p)
+
+            let box2 = document.querySelector('#box2')
+            let p2 = box2.querySelector('p')
+            // box2.appendChild(p)
+
+            // 替换节点
+            // box.replaceChild(h1, p1) 
+            // box.replaceChild(p2, p1)
+
+            // 删除节点
+            // p1.remove()
+            // console.log(box.removeChild(p1))
+
+            // 克隆节点
+            let box3 = document.querySelector('#box3');
+            let div = box3.querySelector('div');
+            console.log(box3.cloneNode())
+            div.onclick = function () {
+                alert(1)
+            }
+            box3.appendChild(div.cloneNode(true))
+
+        }
+    </script>
+</body>
+</html>

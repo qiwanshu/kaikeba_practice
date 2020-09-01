@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <ul id="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>
+            <span>span1</span>
+            <span>span2</span>
+        </li>
+    </ul>
+
+    <script>
+        /*
+            javascript 组成部分
+                - DOM（document Object Model）文档对象模型
+                - BO（browserObject Model）浏览器对象模型
+                - ECMA js的核心
+
+            DOM主要是对页面文档相关的操作
+        */
+
+        // childNodes：子节点
+        let list = document.querySelector('#list');
+        // console.log(list.childNodes)
+        // console.log(document.childNodes)
+        console.log(document.nodeType, document.nodeName);
+        document.childNodes.forEach((item) => {
+            console.log(item, item.nodeType, item.nodeName)
+        })
+        list.childNodes.forEach((item) => {
+            console.log(item, item.nodeType, item.nodeName)
+        })
+
+        /*
+            节点类型：
+                1 元素节点（大写的标签名称）
+                3 文本节点（#text）
+                1 注释节点（#comment）
+                1 document（#document）
+                10 文档声明（html）
+        */
+
+
+    </script>
+</body>
+</html>

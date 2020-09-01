@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            position: relative;
+            width: 500px;
+            height: 500px;
+            margin: 50px auto;
+            border: 1px solid black;
+        }
+        #div{
+            position: absolute;
+            left: 100px;
+            top: 100px;
+            width: 100px;
+            height: 100px;
+            margin-top: 50px;
+            padding: 10px;
+            border: 5px solid black;
+            background-color: red;
+        }
+        #box2{
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 50px auto;
+            border: 1px solid black;
+            overflow: auto;
+        }
+        #div2{
+            width: 100px;
+            padding: 10px;
+            /* border: 5px solid black; */
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="div"></div>
+    </div>
+
+    <div id="box2">
+        <div id="div2">元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离元素左侧距离可视区左侧距离</div>
+    </div>
+
+    <script>
+        /*
+            offset
+                - offsetWidth  可视宽度
+                - offsetHeight 可视高度 
+                - offsetLeft   距离定位父级的left坐标 
+                - offsetTop    距离定位父级的top坐标
+
+            client
+                - clientWidth  可视宽度 - border
+                - clientHeight 可视高度 - border
+                - clientTop    上边框宽度
+                - clientLeft   左边框宽度
+
+            scroll
+                - scrollWidth   内容宽度
+                - scrollHeight  内容高度
+                - scrollLeft    左右滚动距离
+                - scrollTop     上下滚动距离
+        */
+        {
+            let div = document.querySelector('#div');
+
+            console.log(div.offsetWidth, div.offsetHeight) // 可视宽高 = width(height) + padding + border
+            console.log(div.offsetLeft, div.offsetTop)  // 元素距离定位父级左上角的距离
+
+            console.log(div.clientWidth, div.clientHeight)  // width(height) + padding
+            console.log(div.clientLeft, div.clientTop) // 左边框宽度，上边框宽度
+
+            let box2 = document.querySelector('#box2');
+            console.log(box2.scrollHeight)  // 内容高度
+            console.log(box2.scrollWidth)  // 内容宽度
+            // console.log(box2.scrollTop)
+            box2.onscroll = function () {
+                console.log(box2.scrollTop)
+            }
+
+
+
+
+
+        }
+    </script>
+</body>
+</html>

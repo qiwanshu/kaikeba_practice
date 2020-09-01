@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box2{
+            /* position: relative; */
+        }
+        #box span{
+            /* position: absolute; */
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box1">
+        <p>p1</p>
+        <h1>h1</h1>
+        <!--注释-->
+        <p>p2</p>
+        <h2>h2</h2>
+        <p>p3</p>
+        <p>p4</p>
+        <p>p5</p>
+    </div>
+    <div id="box2">
+        <div id="box2-c">
+            <span></span>
+        </div>
+    </div>
+    <script>
+        /*
+            父子级之间的关系
+        */
+
+        /*
+            查找子级
+                - childNodes(NodeList) 子节点（包含所有节点）
+                - children(HTMLCollection) 子元素（只包含元素节点）
+                - firstChild 第0个子节点
+                - firstElementChild 第0个子元素
+                - lastChild 最后一个子节点
+                - lastElementChild 最后一个子元素
+
+            查找兄弟
+                - nextSibling 下一个兄弟节点
+                - nextElementSibling 下一个兄弟元素
+                - previousSibling 上一个兄弟节点
+                - previousElementSibling 上一个兄弟元素
+
+            查找父级
+                - parentNode 父节点
+                - parentElement 父元素
+                - offsetParent 定位父级
+            
+        */
+        {
+            
+            let div = document.querySelector('#box1');
+
+            // 查找子级
+            let children = div.childNodes;
+            children = [...children].filter((item) => {
+                return item.nodeType === 1
+            })
+            // console.log(children)
+            // console.log(div.children)；
+            // console.log(div.firstChild, div.firstElementChild)
+            // console.log(div.lastChild, div.lastElementChild)
+
+            // 查找兄弟
+            let p2 = div.children[2];
+            // console.log(p2.nextSibling, p2.nextElementSibling)
+            // console.log(p2.previousSibling, p2.previousElementSibling)
+
+
+            // 查找父级
+            let span = document.querySelector('span');
+            console.log(span.parentNode)
+            console.log(span.parentElement)
+            console.log(span.offsetParent)
+
+
+        }
+
+    </script>
+</body>
+</html>
