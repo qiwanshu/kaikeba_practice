@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="https://www.baidu.com/s" method="get">
+        <input type="search" name="wd">
+        <input type="submit">
+    </form>
+
+    <button>href跳转</button>
+
+    <script>
+        /*
+            location：地址栏相关信息
+                - hash
+                -              
+        */
+        // console.log(location)
+        // console.log(window.location) location是window下的方法
+
+        document.querySelector('button').onclick = function () {
+            console.log(window.location.href);
+            // window.location.href = 'https://www.baidu.com'  
+            // location.replace('https://www.baidu.com')  // 替换地址信息
+            // location.reload()  // 刷新
+
+
+            // hash
+            console.log(location.hash)
+        }
+
+        
+    </script>
+</body>
+</html>

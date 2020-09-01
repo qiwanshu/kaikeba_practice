@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>按钮</button>
+    <script>
+        /*
+            window.innerWidth/window.innerHeight
+
+            window.open(URL,target,specs,replace)  打开一个新窗口，返回值是新窗口的window对象
+                - 
+
+            window 下的各类弹窗
+                - alert()
+                - confirm('message')
+                - prompt([msg],[defaultText])
+
+            全局的方法大部分都是属于window的
+
+        */
+
+        // console.dir(window)
+        // console.log(window.innerwidth, window.innerWidth)
+
+        document.querySelector('button').onclick = function () {
+            // let win = window.open('http://baidu.com/', '_blank', 'width=200, height=200');
+            // window.setTimeout(function(){
+            //     win.close()
+            // }, 1000)
+            // setTimeout 也是window方法
+
+            // alert('message');
+
+            // console.log(confirm('question'))  // 返回值true/false
+
+            console.log(prompt('hhh', '123'))  // 返回输入框中的内容
+
+        }
+
+        
+
+        
+        
+        
+    </script>
+</body>
+</html>

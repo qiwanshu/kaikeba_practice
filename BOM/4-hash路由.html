@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <a href="#view1">view1</a>
+        <a href="#view2">view2</a>
+        <a href="#view3">view3</a>
+    </nav>
+    <div id="view">
+        这是第一个视图
+    </div>
+    <script>
+        /*
+            路由： 根据路径决定前端的显示视图
+        */
+        {
+            const view = document.querySelector('#view');
+            setView()
+            function setView() {
+                let hash = location.hash;
+                console.log(hash)
+                switch(hash) {
+                    case '':
+                    case '#view1':
+                        view.innerHTML = '这是第一个视图';
+                        break;
+                    case '#view2':
+                        view.innerHTML = '这是第二个视图';
+                        break;
+                    case '#view3':
+                        view.innerHTML = '这是第三个视图';
+                        break;
+                }
+            }
+            window.onhashchange = setView
+        }
+    </script>
+</body>
+</html>
