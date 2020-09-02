@@ -89,7 +89,84 @@
     </div>
 </div> 
 <script>
-{
+    {
+        const search = document.querySelector('#search');
+        const banner = document.querySelector('#banner');
+        const floatBar = document.querySelector('#float');
+        const backTop = document.querySelector('#backTop');
+        // let floatTop = floatBar.offsetTop
+        let floatTop = getPosition(floatBar).top
+        // console.log(floatBar.offsetTop, floatTop)
+        
+        window.onscroll = function () {
+            bannerShow();
+            navFloat();
+            backTopShow()
+        }
+
+        function bannerShow() {
+            let searchT = search.getBoundingClientRect().bottom;
+            if(searchT <= 0) {
+                banner.style.display = 'block'
+            }else{
+                banner.style.display = 'none'
+            }
+        }
+
+        function navFloat() {
+            let scrollT = document.body.scrollTop || document.documentElement.scrollTop;
+            const bannerH = banner.offsetHeight;
+            if(scrollT >= floatTop - bannerH) {
+                floatBar.style.position = 'fixed';
+                floatBar.style.top = bannerH + 'px';
+            } else {
+                floatBar.style.position = 'absolute';
+                floatBar.style.top = '50%';
+            }
+
+        }
+
+        function backTopShow() {
+            let screenHeight = window.innerHeight
+            let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+            if(scrollTop >= screenHeight) {
+                backTop.style.display = 'block'
+            } else {
+                backTop.style.display = 'none'
+            }
+        }
+
+
+        backTop.onclick = function () {
+            // document.body.scrollTop = document.documentElement.scrollTop = 0
+            window.scrollTo(0, 0)
+        }
+        // function toTop() {
+            
+        // }
+
+        // 获取元素到页面距离
+        function getPosition(ele) {
+            let obj = {
+                left: 0,
+                top: 0,
+            }
+
+            obj.left = ele.offsetLeft
+            obj.top = ele.offsetTop;
+            while(ele.offsetParent) {
+                ele = ele.offsetParent;
+                obj.left += ele.offsetLeft;
+                obj.top += ele.offsetTop;
+            }
+            return obj
+        }
+
+        // console.log([...'o'.repeat(3)])
+        // console.log([...'ooo'])
+    }
+
+// {
     // let searchBar = document.querySelector("#search");
     // let searchFloat = document.querySelector("#banner");
     // let navBar = document.querySelector('#float');
@@ -155,7 +232,7 @@
     // })
 
 
-}
+// }
 </script>
 </body> 
 </html>

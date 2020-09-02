@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>招聘信息</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        #root,
+        #view {
+            padding-top: 10px;
+        }
+        .list-group-item-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root" class="container">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#/sh">社会招聘</a></li>
+        <li><a href="#/xy">校园招聘</a></li>
+    </ul>
+    <div id="view">
+       <ul class="list-group">
+             <!-- <li class="list-group-item">
+                <a href="#/sh/details/1">
+                    <h4 class="list-group-item-heading">职位需求：前端开发工程师需求人数：2名</h4>
+                    <p class="list-group-item-text">岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3</p>
+                </a>
+            </li>
+            <li class="list-group-item">
+
+            </li>
+            <li class="list-group-item">
+
+            </li>
+            <li class="list-group-item">
+
+            </li>
+            <li class="list-group-item">
+
+            </li>-->
+        </ul> 
+        <ul class="pagination">
+              <!-- <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>-->
+        </ul>         
+    </div>
+</div>    
+<script src="js/data.js"></script>
+<script>
+    {
+        const listGroup = document.querySelector('.list-group');
+        const pagination = document.querySelector('.pagination');
+        const navs = document.querySelectorAll('.nav li')
+
+        // 数据初始化
+        getHash()
+        // renderList({page: 0, type: 'society'})
+        function renderList(props) {
+            let {page, type} = props;
+            let start = page*5;
+            let end = (page+1)*5;
+            let nowData = data[type].filter((item, index) => index >= start && index < end);
+            // console.log(start, end)
+            // console.log(nowData)
+            let inner = '';
+            nowData.forEach((item, index) => {
+                inner += `
+                    <li class="list-group-item">
+                        <a href="#/${item.type}/details/${item.id}">
+                            <h4 class="list-group-item-heading">职位需求：${item.job} 需求人数：${item.nub}名</h4>
+                            <p class="list-group-item-text">岗位要求：${item.ask}</p>
+                        </a>
+                    </li>
+                `
+            })
+            listGroup.innerHTML = inner
+            renderPagination(props)
+        }
+ 
+        function renderPagination (props) {
+            let {page, type} = props;
+            let totalPage = Math.ceil(data[type].length/5);
+            let pageArr = [...'a'.repeat(totalPage)];
+            // console.log(pageArr);
+            
+            let inner = '';
+            pageArr.forEach((item, index) => {
+                inner += `<li class=${page === index && 'active'}><a href="#/${type == 'society'? 'sh': 'xy'}/${index}">${index + 1}</a></li>`
+            })
+
+            pagination.innerHTML = inner
+        }
+
+        function renderDetails(props) {
+            let {type, id} = props;
+            let detailData = data[type].filter((item, index) => item.id == id)[0]
+
+            listGroup.innerHTML = `
+                <div class="panel panel-default">
+                    <div class="panel-heading">招聘岗位：${detailData.job}</div>
+                    <div class="panel-body">
+                        <p>${detailData.ask}</p>
+                        <p>招聘人数：${detailData.nub}人</p>
+                        <p>发布时间：${detailData.date}</p>
+                    </div>
+                </div>
+            `
+            pagination.innerHTML = ''
+        }
+
+        window.onhashchange = function () {
+            // console.log(1)
+            getHash()
+        }
+
+        function getHash() {
+            const hash = window.location.hash;
+            let hashArr = hash.substring(2).split('/');
+            console.log(hashArr)
+
+            let type = hashArr[0] == 'sh'? 'society': 'campus'
+
+            if(hashArr[0] == 'sh') {
+                navs[0].classList.add('active')
+                navs[1].classList.remove('active')
+            } else {
+                navs[1].classList.add('active')
+                navs[0].classList.remove('active')
+            }
+            if(hashArr[1] == 'details') {
+                renderDetails({type: type, id: parseInt(hashArr[2])})
+            } else {
+                let page = parseInt(hashArr[1]) || 0
+                renderList({page: page, type: type})
+            }
+        }
+
+    }
+// {
+//     let view = document.querySelector("#view");
+//     let listGroup = document.querySelector(".list-group");
+//     let pagination = document.querySelector(".pagination");
+//     let navs = document.querySelectorAll('.nav-tabs li')
+//     // let nowPage = 1;
+//     // let type = 'society';
+
+//     pageRender()
+
+//     // getData({type: 'society',nowPage: 0}) 
+//     // 
+//     function getData(props) {
+//         // let type = 'society';
+//         let {type,nowPage} = props
+//         let inner = ''
+//         let newData = data[type].filter((item, index) => index >= nowPage*5 && index < (nowPage+1)*5)
+//         // console.log(newData)
+//         newData.forEach((item,index) => {
+//             inner += `
+//                 <li class="list-group-item">
+//                     <a href="#/${item.type}/details/${item.id}">
+//                         <h4 class="list-group-item-heading">职位需求：${item.job}需求人数：${item.nub}名</h4>
+//                         <p class="list-group-item-text">${item.ask}</p>
+//                     </a>
+//                 </li>
+//             `
+//         });
+//         listGroup.innerHTML = inner;
+
+//         getPagination(props)
+//     }
+
+//     // 分页
+//     function getPagination(props) {
+//         let {type,nowPage} = props
+//         let pageNum = Math.ceil(data[type].length/5)
+//         // console.log(pageNum)
+//         let arr = [...'a'.repeat(pageNum)];
+//         // console.log(arr);
+//         let eType = type==='society'? 'sh': 'xy'
+//         let innerPage = ''
+//         arr.forEach((item, index) => {
+//             innerPage += ` 
+//                 <li class="${nowPage == index? 'active': ''}"><a href="#/${eType}/${index}">${index+1}</a></li>
+//             `
+//         });
+//         pagination.innerHTML = innerPage
+//     }
+
+//     function detailsRender(type,id) {
+//         // let {type, }
+//         let detailsData = data[type].filter((item, index) => item.id == id)[0];
+//         let innerDetails = ''
+//         // console.log(detailsData)
+//         innerDetails += `
+//             <div class="panel panel-default">
+//                 <div class="panel-heading">招聘岗位：${detailsData.job}</div>
+//                 <div class="panel-body">
+//                     <p>${detailsData.ask}</p>
+//                     <p>招聘人数：${detailsData.nub}人</p>
+//                     <p>发布时间：${detailsData.date}</p>
+//                 </div>
+//             </div> 
+//         `
+
+//         listGroup.innerHTML = innerDetails;
+//     }
+
+
+//     window.onhashchange = pageRender
+
+//     function pageRender() {
+//      // console.log(window.location.hash)
+//         let hash = window.location.hash;
+//         hash = hash.substr(2)
+//         let hashArr = hash.split('/');
+//         // console.log(hashArr)
+//         let pageN = 0;
+//         navs.forEach((item)=>{
+//             item.classList.remove('active')
+//         })
+
+//         // let eType = hashArr[0] == 'xy'? 'campus': 'society';
+//         // let navAct = hashArr[0] == 'xy'? 1: 0;
+
+//         let eType = !hashArr[0] || hashArr[0] == 'sh'? 'society': 'campus';
+//         let navAct = !hashArr[0] || hashArr[0] == 'sh'? 0: 1;
+
+
+//         if(hashArr[1] === 'details'){
+//             detailsRender(eType,parseInt(hashArr[2]))
+//             pagination.style.display = 'none'
+//         }
+//         else {
+//             pageN = parseInt(hashArr[1]) || 0;
+//             navs[navAct].classList.add('active')
+//             getData({type: eType,nowPage: pageN});
+//             pagination.style.display = 'inline-block'
+//         } 
+//     }
+// }
+
+
+
+</script>
+</body>
+</html>
