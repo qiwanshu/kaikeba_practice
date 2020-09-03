@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        #box1{
+            width: 300px;
+            height: 300px;
+        }
+        #box1 p{
+            width: 100px;
+            height: 100px;
+            background-color: black;
+        }
+        #box2{
+            margin-top: 20px;
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="box1">
+        <p>事件冒泡</p>
+        <a href="https://www.baidu.com">a标签</a>
+    </div>
+    <div id="box2"></div>
+    <button id="btn2">取消事件</button>
+    <script>
+        /*
+            事件监听和事件绑定
+                - 事件监听：el.addEventListner('click', fn), 同一元素多个事件之间互不影响
+                - 事件绑定：el.onclick = fn ， 同一元素，下面的事件会覆盖上面的事件
+
+            事件流
+                - 事件冒泡：执行子元素上的事件，如果父元素有同样事件也会执行，事件冒泡是js的特性
+                - 事件捕获：从外向内
+                - 事件捕获 先于 事件冒泡 执行
+
+            事件监听
+                - box.addEventListener('click', fn, [, options|useCapture])
+                - useCapture 是否捕获， 为 true 时 捕获，false时 不捕获
+            取消事件监听：
+                - 
+
+            事件绑定
+                - el.onclick = function
+                - 下面的事件会覆盖上面的
+
+
+        */
+
+        let box = document.querySelector('#box');
+        
+        // 事件绑定
+        // box.onclick = function () {
+        //     alert(1)
+        // }
+        // box.onclick = function () {
+        //     alert(2)
+        // }
+
+        // 事件监听
+        // box.addEventListener('click', function () {
+        //     alert(1)
+        // })
+        // box.addEventListener('click', function () {
+        //     alert(2)
+        // })
+
+        // 事件冒泡
+        let box1 = document.querySelector('#box1');
+        let p1 = document.querySelector('#box1 p');
+        box1.addEventListener('click', function () {
+            alert('box1')
+        }, {
+            once: true    // 只执行一次
+        })
+        p1.addEventListener('click', function () {
+            alert('p1')
+        }, )
+
+        let a = document.querySelector('a');
+        a.addEventListener('click',function (e) {
+            e.preventDefault()
+        }, {
+
+            // 拒绝（阻止）阻止默认行为，true
+            passive: true   // 前面preventDefault() 失效，点击a标签仍然跳转
+        }) 
+
+        let box2 = document.querySelector('#box2');
+        let btn2 = document.querySelector('#btn2');
+
+        function fn() {
+            alert('box2')
+        }
+        box2.addEventListener('click', fn)
+
+        // 取消div上的click事件
+        btn2.addEventListener('click', function () {
+            // removeEventListener(event, fn)
+            // removeEventListener(事件, 函数名)
+            box2.removeEventListener('click', fn)
+        })
+
+    </script>
+</body>
+</html>

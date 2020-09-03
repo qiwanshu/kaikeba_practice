@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="https://www.baidu.com">click</a>
+
+    <script>
+        /*
+            浏览器给的功能都是默认事件（默认行为）
+            阻止默认事件
+                - e.cancelBubble = true
+                - e.preventDefault()   标准方法
+                - return false  事件监听(el.addEventListener)不生效，事件绑定（el.onclick）才有用
+        */
+
+        document.querySelector('a').addEventListener('click', function (e) {
+            // e 是事件对象
+            console.log(e)
+
+            // 阻止浏览器默认行为
+            e.preventDefault()    // 点击a标签不会跳转到百度页面
+            e.cancelBubble
+        })
+    </script>
+</body>
+</html>

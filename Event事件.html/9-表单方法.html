@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" id="form">
+
+        <input type="text" id="txt">
+        <input type="submit" value="提交" id="submit">
+        <input type="reset" value="重置" id="reset">
+    </form>
+
+    <script>
+
+        /*
+            blur()、focus()、select()
+        */
+        {
+            let form = document.querySelector('#form')
+            let txt = document.querySelector('#txt')
+            let submit = document.querySelector('#submit')
+            let reset = document.querySelector('#reset');
+
+            document.addEventListener('keydown', function (e) {
+                if(e.keyCode === 13) {
+                    txt.blur()
+                }
+
+                if(e.keyCode === 32) {
+                    txt.focus()
+                }
+
+                if(e.keyCode === 16) {
+                    txt.select()
+                }
+            })
+        }
+    </script>
+</body>
+</html>

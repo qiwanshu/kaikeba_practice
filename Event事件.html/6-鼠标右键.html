@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            contextmenu: 鼠标右键事件，点击鼠标右键触发
+                - 自定义右键菜单
+        */
+        document.addEventListener('contextmenu', function(e){
+            alert(1)
+            e.preventDefault()
+        })
+
+        document.oncontextmenu = function () {
+            alert(1);
+            return false
+        }
+    </script>
+</body>
+</html>

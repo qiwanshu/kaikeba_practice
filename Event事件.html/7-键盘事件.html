@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            keydown 键盘按下
+            keyup 键盘抬起
+
+            keyCode 键码 唯一
+            key 键值
+            ctrlKey 是否按下Ctrl键
+            altKey 是否按下Alt键
+            shiftKey 是否按下shift键
+        */
+
+        document.addEventListener('keydown', function (e) {
+            console.log('keydown')
+            console.log(e.keyCode)
+            console.log(e.key)
+
+            console.log(e.ctrlKey)
+            console.log(e.altKey)
+            console.log(e.shiftKey)
+        })
+
+        document.addEventListener('keyup', function () {
+            console.log('keyup')
+        })
+
+    </script>
+</body>
+</html>

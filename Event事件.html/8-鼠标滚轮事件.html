@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            mousewheel  兼容谷歌、IE
+                - event.wheelDelta  滚轮向上输出正值（120），滚轮向下输出负值（-120）
+
+            DOMMouseScroll 兼容Firefox
+                - event.detail  滚轮向上输出负值（-3），滚轮向下输出正值（3）
+        */
+
+        document.addEventListener('mousewheel', function (e) {
+            console.log(e.wheelDelta)
+        })
+
+        document.addEventListener('DOMMouseScroll', function (e) {
+            console.log(e.detail)
+        })
+
+    </script>
+</body>
+</html>

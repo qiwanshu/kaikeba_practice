@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin-top: 50px;
+        }
+        p{
+            width: 50px;
+            height: 50px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul>
+            <li>
+                <p></p>
+            </li>
+            <li>
+                <p></p>
+            </li>
+            <li>
+                <p></p>
+            </li>
+            <li>
+                <p></p>
+            </li>
+            <li>
+                <p></p>
+            </li>
+        </ul>
+    </div>
+    <script>
+        // 事件委托
+
+        // 给li添加事件，将事件委托给ul
+        let ul = document.querySelector('ul');
+        ul.addEventListener('click', function (e) {
+            // e.target.style.backgroundColor = 'yellow'
+
+            // 判定目标元素是否是想要添加事件的元素
+            console.log(e.target.tagName)   // 标签名称 大写
+
+            if(e.target.tagName == 'LI') {
+                e.target.style.backgroundColor = 'yellow'
+            }
+        })
+
+    </script>
+</body>
+</html>
