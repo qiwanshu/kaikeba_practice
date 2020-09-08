@@ -13,11 +13,26 @@
             top: 0;
             background-color: red
         }
+
+        #box1{
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+        #box1 p{
+            width: 100px;
+            height: 100px;
+            background-color: black;
+
+        }
     </style>
 </head>
 <body>
-    <div>
+    <div id="box"> 
 
+    </div>
+    <div id="box1">
+        <p>事件冒泡</p>
     </div>
     <script>
         /*
@@ -27,6 +42,9 @@
                 - 获取鼠标相对于页面左上角的坐标
 
             mousemove: 鼠标移动事件
+
+            mouseover 和 mouseout 如果鼠标移入或移出 子级范围，会触发事件
+            mouseenter 和 mouseleave 不受子级元素范围干扰，不会在鼠标移动父子级切换过程中触发
         */
         // let body = document.querySelector('body');
         // body.addEventListener('click', function (e) {
@@ -37,10 +55,28 @@
 
 
         // 鼠标跟随
-        let div = document.querySelector('div');
+        let div = document.querySelector('#box');
         document.addEventListener('mousemove', function (e) {
             div.style.left = e.pageX + 'px'
             div.style.top = e.pageY + 'px'
+        })
+
+        /*
+            mouseover 和 mouseout 如果鼠标移入或移出 子级范围，会触发事件
+            mouseenter 和 mouseleave 不受子级元素范围干扰
+        */
+        box1.addEventListener('mouseover', function () {
+            console.log('移入了')
+        })
+        box1.addEventListener('mouseout', function () {
+            console.log('移出了')
+        })
+
+        box1.addEventListener('mouseenter', function () {
+            console.log('移入了')
+        })
+        box1.addEventListener('mouseleave', function () {
+            console.log('移出了')
         })
 
 

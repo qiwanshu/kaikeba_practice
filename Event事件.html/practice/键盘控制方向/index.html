@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+
+    <script>
+        {
+            let box = document.querySelector('#box');
+            let onOff = {
+                toL: false,
+                toR: false,
+                toT: false,
+                toB: false,
+            }
+
+            setInterval(function(){
+                if(onOff.toL) {
+                    box.style.left = box.offsetLeft - 10 + 'px'
+                }
+                if(onOff.toR) {
+                    box.style.left = box.offsetLeft + 10 + 'px'
+                }
+                if(onOff.toT) {
+                    box.style.top = box.offsetTop - 10 + 'px'
+                }
+                if(onOff.toB) {
+                    box.style.top = box.offsetTop + 10 + 'px'
+                }
+            }, 30)
+
+            document.addEventListener('keydown', function (e) {
+                // 左-37 上-38 右-39 下-40
+                switch(e.keyCode) {
+                    case 37: 
+                        onOff.toL = true;
+                        break;
+                    case 38: 
+                        onOff.toT = true;
+                        break;
+                    case 39: 
+                        onOff.toR = true;
+                        break;
+                    case 40: 
+                        onOff.toB = true;
+                        break;
+                }
+            })
+            document.addEventListener('keyup', function (e) {
+                switch(e.keyCode) {
+                    case 37: 
+                        onOff.toL = false;
+                        break;
+                    case 38: 
+                        onOff.toT = false;
+                        break;
+                    case 39: 
+                        onOff.toR = false;
+                        break;
+                    case 40: 
+                        onOff.toB = false;
+                        break;
+                }
+            })
+
+        }
+    // {
+    //     let box = document.querySelector("#box");
+
+    //     let oPosition = {
+    //         goL: false,
+    //         goT: false,
+    //         goR: false,
+    //         goB: false
+    //     }
+
+    //     setInterval(function () {
+    //         if(oPosition.goL){
+    //             box.style.left = box.offsetLeft - 10 + 'px'
+    //         }
+    //         if(oPosition.goT){
+    //             box.style.top = box.offsetTop - 10 + 'px'
+    //         }
+    //         if(oPosition.goR){
+    //             box.style.left = box.offsetLeft + 10 + 'px'
+    //         }
+    //         if(oPosition.goB){
+    //             box.style.top = box.offsetTop + 10 + 'px'
+    //         }
+    //     },30);
+
+    //     document.addEventListener('keydown',function (e) {
+    //         // console.log(e.keyCode)
+    //         // 左-37 上-38 右-39 下-40
+    //         // let startP = {
+    //         //     startT: 
+    //         // }
+    //         // let startY = box.offsetTop
+    //         // let startX = box.offsetLeft
+
+    //     //    if(e.keyCode == 37) {
+    //     //         oPosition.goL = true
+    //     //    }
+    //     //    if(e.keyCode == 38) {
+    //     //         oPosition.goT = true
+    //     //    }
+    //     //    if(e.keyCode == 39) {
+    //     //         oPosition.goR = true
+    //     //    }
+    //     //    if(e.keyCode == 40) {
+    //     //         oPosition.goB = true
+    //     //    }
+
+    //         switch(e.keyCode){
+    //             case 37: 
+    //                 oPosition.goL = true
+    //                 break;
+    //             case 38: 
+    //                 oPosition.goT = true
+    //                 break;
+    //             case 39: 
+    //                 oPosition.goR = true
+    //                 break;
+    //             case 40: 
+    //                 oPosition.goB = true
+    //                 break;
+    //         }
+
+
+    //     });
+    //     document.addEventListener('keyup',function(e){
+    //         if(e.keyCode == 37) {
+    //             oPosition.goL = false
+    //         }
+    //         if(e.keyCode == 38) {
+    //             oPosition.goT = false
+    //         }
+    //         if(e.keyCode == 39) {
+    //             oPosition.goR = false
+    //         }
+    //         if(e.keyCode == 40) {
+    //              oPosition.goB = false
+    //         }
+    //     })
+    // }
+    </script>
+</body>
+</html>

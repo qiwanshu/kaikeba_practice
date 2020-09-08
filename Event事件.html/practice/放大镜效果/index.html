@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Document</title>
+	<link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+	<div id="box">
+		<div id="left">
+			<img src="images/img.png" id="img1" />
+			<div id="mask"></div>
+		</div>
+		<div id="right">
+			<div id="border">
+				<img src="images/img.png" id="img2" />
+			</div>
+		</div>
+	</div>
+	<script>
+		{
+			let left = document.querySelector("#left");
+			let mask = document.querySelector('#mask');
+                  let right = document.querySelector('#right');
+                  let border = document.querySelector('#border')
+                  let img1 = document.querySelector('#img1')
+                  let img2 = document.querySelector('#img2')
+
+                  let leftL = left.getBoundingClientRect().left
+                  let leftT = left.getBoundingClientRect().top
+                  // console.log(leftL, leftT)
+                  
+			
+                  left.addEventListener('mousemove', function (e) {
+                        mask.style.display = 'block';
+                        right.style.display = 'block';
+                        let proportion = img2.offsetWidth/img1.offsetWidth;
+                        // console.log(img2.offsetWidth, img1.offsetWidth)
+                        // console.log(proportion)
+                        
+                        // 鼠标相对与可视区的位置
+                        let mouseL = e.clientX
+                        let mouseT = e.clientY;
+                        // console.log(mouseL, mouseT)
+
+                        // 鼠标相对于left 的位置
+                        let l = mouseL - leftL
+                        let t = mouseT - leftT
+                        // console.log(l, t)
+
+                        // 边界处理
+                        let maskL = l - mask.offsetWidth/2
+                        let maskT = t - mask.offsetHeight/2
+                        // console.log(maskL, left.offsetWidth - mask.offsetWidth)
+
+                        if(maskL < 0) {
+                              maskL = 0
+                        } else if(maskL > left.offsetWidth - mask.offsetWidth) {
+                              maskL = left.offsetWidth - mask.offsetWidth
+                        }
+                        if(maskT < 0) {
+                              maskT = 0
+                        } else if(maskT > left.offsetHeight - mask.offsetHeight) {
+                              maskT = left.offsetHeight - mask.offsetHeight
+                        }
+
+                        // 设置mask 的位置、宽高
+                        mask.style.left = maskL + 'px'
+                        mask.style.top = maskT + 'px'
+                        mask.style.width = border.offsetWidth/proportion + 'px'
+                        mask.style.height = border.offsetHeight/proportion + 'px'
+                        
+                        // 设置img2的位置(mask的左侧相对于left的位置，按比例)
+                        img2.style.left = - mask.offsetLeft*proportion + 'px'
+                        img2.style.top = - mask.offsetTop*proportion + 'px'
+
+                  })
+		}
+      // {
+      //   let left = document.querySelector("#left");
+      //   let right = document.querySelector("#right");
+      //   let mask = document.querySelector("#mask");
+      //   let border = document.querySelector("#border");
+      //   let img1 = document.querySelector("#img1");
+      //   let img2 = document.querySelector("#img2");
+
+      //   left.addEventListener('mousemove',function (e) {
+      //     mask.style.display = 'block';
+      //     right.style.display = 'block';
+      //     let imgScale = img2.offsetWidth / img1.offsetWidth;
+      //     let maskW = border.offsetWidth / imgScale;
+      //     let maskH = border.offsetHeight / imgScale
+      //     // console.log(maskW,maskH)
+      //     mask.style.width = maskW + 'px';
+      //     mask.style.height = maskH + 'px';
+
+      //     // console.log(left.getBoundingClientRect().left)
+      //     let x = e.clientX - left.getBoundingClientRect().left - mask.offsetWidth / 2;
+      //     let y = e.clientY - left.getBoundingClientRect().top - mask.offsetHeight / 2;
+
+      //     let minL = 0
+      //     let maxL = left.offsetWidth -  mask.offsetWidth;
+
+      //     let minT = 0
+      //     let maxT = left.offsetHeight - mask.offsetHeight;
+
+
+      //     if (x < minL) {
+      //       x =  minL
+      //     } else if (x > maxL) {
+      //       x = maxL
+      //     }
+
+      //     if (y < minT) {
+      //       y =  minT
+      //     } else if (y > maxT) {
+      //       y = maxT
+      //     }
+
+      //     mask.style.left = x + 'px';
+      //     mask.style.top = y + 'px';
+
+      //     img2.style.left = -imgScale*x + 'px'
+      //     img2.style.top = -imgScale*y + 'px'
+
+
+      //   })
+
+      // }
+	</script>
+</body>
+
+</html>

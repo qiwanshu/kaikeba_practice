@@ -49,8 +49,12 @@
             事件监听
                 - box.addEventListener('click', fn, [, options|useCapture])
                 - useCapture 是否捕获， 为 true 时 捕获，false时 不捕获
+                - options
+                    - {capture: true} 捕获执行 和直接写 true 是一个意思
+                    - {once: true} 只执行一次
+                    - {passive: true} 拒绝阻止默认事件
             取消事件监听：
-                - 
+                - removeEventListener(事件名, 函数名)
 
             事件绑定
                 - el.onclick = function

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 60px;
+            height: 60px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+
+    </div>
+     <script>
+        {
+            let box = document.querySelector('#box');
+            box.addEventListener('mousedown', function (e) {
+                let startX = e.clientX;
+                let startY = e.clientY;
+                let boxStartX = box.offsetLeft;
+                let boxStartY = box.offsetTop;
+                // console.log(startX, startY)
+                // console.log(boxStartX, boxStartY)
+
+                document.addEventListener('mousemove', move)
+                document.addEventListener('mouseup', function (e) {
+                    document.removeEventListener('mousemove', move)
+                    console.log(1)
+                }, {
+                    once: true
+                })
+
+                function move(e) {
+                    let distanceX = e.clientX - startX;
+                    let distanceY = e.clientY - startY;
+                    // console.log(e.clinetX, startX)
+                    // console.log(e.clinetY, startY)
+                    // console.log(distanceX, distanceY)
+
+                    // 边界处理
+                    let l = boxStartX + distanceX;
+                    let t = boxStartY + distanceY;
+
+                    if (l <= 0) {
+                        l = 0
+                    } else if (l >= window.innerWidth - box.offsetWidth) {
+                        l = window.innerWidth - box.offsetWidth
+                    }
+
+                    if (t <= 0) {
+                        t = 0
+                    } else if (t >= window.innerHeight - box.offsetHeight) {
+                        t = window.innerHeight - box.offsetHeight
+                    }
+
+                    box.style.left = l + 'px';
+                    box.style.top = t + 'px';
+                }
+            })
+        }
+        // {
+        //     let box = document.querySelector("#box");
+
+        //     document.addEventListener('mousedown',function (e) {
+
+        //         // 初始位置
+        //         let intL = e.clientX;
+        //         let intT = e.clientY;
+        //         let intBoxL = box.offsetLeft
+        //         let intBoxT = box.offsetTop
+        //         // console.log(intL,intT)
+
+        //         document.addEventListener('mousemove',boxMove)
+
+        //         document.addEventListener('mouseup',function (e) {
+        //             // console.log(1)
+        //             document.removeEventListener('mousemove',boxMove);
+
+        //         },{
+        //             once: true
+        //         })
+
+        //         function boxMove(e) {
+        //             let nowL = e.clientX
+        //             let nowT = e.clientY
+        //             // console.log(nowL,nowT)
+        //             // 鼠标移动距离
+        //             let moveL = nowL - intL
+        //             let moveT = nowT - intT;
+
+        //             let x = intBoxL + moveL;
+        //             let y = intBoxT + moveT 
+        //             if(x < 0 ){
+        //                 x = 0
+        //             }
+        //             else if (x > window.innerWidth - box.offsetWidth) {
+        //                 x = window.innerWidth - box.offsetWidth
+        //             }
+
+        //             if(y < 0 ){
+        //                 y = 0
+        //             }
+        //             else if (y > window.innerHeight - box.offsetHeight) {
+        //                 y = window.innerHeight - box.offsetHeight
+        //             }
+
+        //             box.style.left = x + 'px'
+        //             box.style.top = y + 'px'
+        //         }
+
+        //     });
+        // }
+     </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义滚动条</title>
+    <style>
+        body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url(./imgs/bg.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: absolute;
+        }
+
+        .wrap {
+            width: 100px;
+            height: 360px;
+            background-color: #fdfdfd;
+            position: relative;
+            border-radius: 10px;
+            margin: 200px auto;
+            padding-top: 11px;
+            padding-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .scroll-wrap {
+            width: 13px;
+            height: 363px;
+            background-color: #dedede;
+            position: absolute;
+            border: 1px solid #dedede;
+            top: 11px;
+            right: 7px;
+            border-radius: 10px;
+        }
+
+        .scroll {
+            width: 13px;
+            height: 30px;
+            background-color: #fcfcfc;
+            border-radius: 10px;
+            position: absolute;
+        }
+
+        li {
+            line-height: 36px;
+            text-indent: 21px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <ul class="list"></ul>
+        <div class="scroll-wrap">
+            <div class="scroll"></div>
+        </div>
+    </div>
+    <script src="../../wheel.js"></script>
+    <script>
+        let arr = ['河北', '山西', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西','山东', '河南', '湖北', '湖南', '广东', '海南', '四川', '贵州', '云南', '陕西', '甘肃', '青海', '台湾',
+            '北京', '天津', '上海', '重庆'
+        ];
+
+        {
+            let wrap = document.querySelector('.wrap');
+            let list = document.querySelector('.list');
+            let scrollWrap = document.querySelector('.scroll-wrap');
+            let scroll = document.querySelector('.scroll');
+
+            let inner = '';
+            arr.forEach((item, index) => {
+                inner += `
+                    <li>${item}</li>
+                `
+            })
+            list.innerHTML = inner;
+
+            function css(el, attr, value) {
+                if(arguments.length == 3) {
+                    el.style[attr] = value + 'px';
+                } else {
+                    return (parseInt(getComputedStyle(el)[attr]) || parseInt(el.currentStyle[attr]))
+                }
+            }
+
+            let scale = css(list, 'height')/css(wrap, 'height');
+            let scrollWrapH = css(scrollWrap, 'height');
+            let scrollH = scrollWrapH/scale;
+            // console.log(scrollWrapH)
+            css(scroll, 'height', scrollH);
+
+            function setOption(y) {
+                y = Math.max(0,y)
+                y = Math.min(y, scrollWrapH - scrollH);
+                css(scroll, 'top', y);
+                let listT = - scroll.offsetTop*scale;
+                css(list, 'top', listT)
+            }
+
+            scroll.addEventListener('mousedown', function (e) {
+                let startY = e.clientY;
+                let scrollT = scroll.offsetTop;
+
+                function scrollFn(e) {
+                    let distanceY = e.clientY - startY;
+                    let y = scrollT + distanceY;
+                    setOption(y);
+                    // y = Math.max(0,y)
+                    // y = Math.min(y, scrollWrapH - scrollH)
+                    // css(scroll, 'top', y);
+                    // // console.log(css(scroll, 'top'))
+                    // let listT = - scroll.offsetTop*scale;
+                    // // console.log(listT)
+                    // css(list, 'top', listT)
+
+                    e.preventDefault()
+                }
+
+                document.addEventListener('mousemove', scrollFn);
+                document.addEventListener('mouseup', function () {
+                    document.removeEventListener('mousemove', scrollFn);
+                }, {
+                    once: true
+                })
+            });
+
+            // 添加鼠标滚轮事件
+            mouseScroll(wrap, ()=> {
+                let y = scroll.offsetTop - 10;
+                setOption(y)
+                // y = Math.max(0,y)
+                // y = Math.min(y, scrollWrapH - scrollH);
+                // css(scroll, 'top', y);
+                // let listT = - scroll.offsetTop*scale;
+                // css(list, 'top', listT)
+            }, () => {
+                // console.log(1)
+                let y = scroll.offsetTop + 10;
+                setOption(y)
+                // y = Math.max(0,y)
+                // y = Math.min(y, scrollWrapH - scrollH);
+                // css(scroll, 'top', y);
+                // let listT = - scroll.offsetTop*scale;
+                // css(list, 'top', listT)
+
+            })
+
+        }
+
+        // {
+        //     let wrap = document.querySelector('.wrap')
+        //     let list = document.querySelector('.list')
+        //     let scrollWrap = document.querySelector('.scroll-wrap')
+        //     let scroll = document.querySelector('.scroll')
+
+        //     // 渲染数据
+        //     let inner = '' ;
+        //     arr.forEach((item,index) => {
+        //         inner += `
+        //             <li>${item}</li>
+        //         `
+        //     });
+        //     list.innerHTML = inner;
+
+        //     // 获取 设置样式 通用方法
+        //     function css(el, attr, val) {
+        //         // let style = window.getComputedStyle(el)[attr] || el.currentStyle[attr]
+        //         if(arguments.length == 3) {
+        //             el.style[attr] = val + 'px'
+        //         }
+        //         else{
+
+        //             let style = el.currentStyle? parseInt(el.currentStyle[attr]):  parseInt(window.getComputedStyle(el)[attr])
+        //             // let style = parseInt(window.getComputedStyle(el).getPropertyValue(attr)) || parseInt(el.currentStyle.getAttribute(attr));
+        //             return style
+        //         }
+        //     }
+            
+        //     let nScale = css(list,'height') / css(wrap,'height');
+        //     scroll.style.height = css(scrollWrap, 'height') / nScale + 'px';
+
+        //     // 滚动块滚动
+        //     scroll.addEventListener('mousedown',function (e) {
+        //         // 初始位置
+        //         // let startX = e.clientX
+        //         let startY = e.clientY
+        //         // let startScrollX = css(scroll, 'left')
+        //         let startScrollY = css(scroll,'top')
+        //         function move(e) {
+        //             let moveY = e.clientY - startY;
+        //             let nowY = startScrollY + moveY;
+        //             // console.log(nowY)
+        //             nowY = Math.min(nowY, css(scrollWrap, 'height') - css(scroll, 'height'))
+        //             nowY = Math.max(nowY, 0)
+
+        //             css(scroll, 'top', nowY)
+        //             css(list, 'top', -nowY*nScale)
+        //         }
+        //         document.addEventListener('mousemove', move)
+        //         document.addEventListener('mouseup',function (){
+        //             document.removeEventListener('mousemove',move)
+        //         },{
+        //             once: true
+        //         })
+
+        //         e.preventDefault()
+
+        //     })
+
+        //     // 添加 鼠标滚轮事件
+        //     mouseScrollFn(wrap, function(){
+        //         mouseScroll(-10)
+
+        //     }, function() {
+        //         mouseScroll(10)
+        //     })
+
+
+        //     // 鼠标滚轮通用函数
+        //     function mouseScrollFn(el, upFn, downFn){
+        //         el.addEventListener('mousewheel',function(e){
+        //             if(e.wheelDeltaY < 0) {   // 向下滚动
+        //                 downFn && downFn()
+        //             }
+        //             else {   // 向上滚动
+        //                 upFn && upFn()
+        //             }
+        //             e.preventDefault()
+        //         });
+        //         el.addEventListener('DOMMouseScroll', function(e){
+        //             if( e.detail > 0) {   // 向下滚动
+        //                 downFn && downFn()
+        //             }
+        //             else{ // 向上滚动
+        //                 upFn && upFn()
+        //             }
+        //             e.preventDefault()
+        //         })
+        //     }
+
+        //     function mouseScroll(speed) {
+        //         let y = css(scroll, 'top') + speed;
+        //         y = Math.max(y,0);
+        //         y = Math.min(y,css(scrollWrap, 'height') - css(scroll, 'height'));
+
+        //         // console.log(y)
+
+        //         // scroll.style.top = y + 'px';
+        //         // list.style.top = -y*nScale + 'px';
+
+        //         css(scroll, 'top', y);
+        //         css(list,'top',-y*nScale)
+        //     }
+            
+        // }
+
+
+    </script>
+</body>
+
+</html>

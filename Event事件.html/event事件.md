@@ -30,7 +30,7 @@
     - 事件流
       - 事件冒泡
       - 事件捕获
-    - 事件监听相关配置
+    - 事件监听相关配置(options)
       - capture   是否在捕获阶段执行
       - once   是否只执行一次
       - passive  阻止取消默认事件 （拒绝阻止默认行为）
@@ -57,6 +57,8 @@
   - 制作组合键 
 - 拖拽思路详解
   - mousedown、mousemove、mouseup
+    - mousedown 点鼠标左键、右键、中键都可以触发
+    - e.button: 0 左键，1 中键，2 右键
   - 拖拽公式：元素当前位置 = (鼠标当前位置 - 鼠标初始位置) + 元素初始位置
   - 拖拽问题修复
   - 限制范围拖拽
@@ -65,6 +67,7 @@
   - Event.wheelDelta 和  Event.detail 滚轮方向获取
 - 其他常用事件：
   - dblclick
+  - selectstart 选中文字事件（浏览器默认 ctrl+A 也会触发选中事件）
   - blur、focus、change、input、submit、reset
   - 表单其他方法：blur()、focus()、select()
 
@@ -90,7 +93,10 @@
 ## 下节课预告
 
 
-
+## 案例
+- 下拉菜单
+- 右键菜单
+- 留言板
 
 
 

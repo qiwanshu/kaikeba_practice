@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box{
+            border: blue 1px solid;
+            position: absolute;
+            background: rgba(0,0,255,0.4);
+        }
+
+        .bigBox{
+            height: 300px;
+            border: 1px solid blue;
+        }
+        .list{
+            list-style: none;
+        }
+        .bigBox li,.list li {
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            float: left;
+            margin: 20px;
+        }
+
+        .list .active{
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <ul class="bigBox"></ul>
+    <ul class="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+    </ul>
+    <script>
+        {
+            // 画框
+            document.addEventListener('mousedown', function (e) {
+                let div = document.createElement('div');
+                div.className = 'box';
+                let start = {
+                    l: e.clientX,
+                    t: e.clientY
+                }
+
+                function move(e) {
+                    let boxW = Math.abs(e.clientX - start.l)
+                    let boxH = Math.abs(e.clientY - start.t)
+                    
+                    div.style.width = boxW + 'px'
+                    div.style.height = boxH + 'px'
+                    div.style.left = Math.min(e.clientX, start.l) + 'px'
+                    div.style.top = Math.min(e.clientY, start.t) + 'px'
+
+                    console.log(div)
+                    document.body.appendChild(div)
+                }
+
+                document.addEventListener('mousemove', move)
+                document.addEventListener('mouseup', function (e) {
+                    document.removeEventListener('mousemove', move)
+                })
+
+                
+
+                
+            })
+        }
+        // {
+        //     let bigBox = document.querySelector('.bigBox')
+        //     let lis = document.querySelectorAll(".list li")
+        //     document.addEventListener('mousedown', function (e) {
+        //         let startPos = {
+        //             l: e.clientX,
+        //             t: e.clientY
+        //         }
+        //         let div = document.createElement('div');
+        //         div.className = "box";
+        //         document.body.appendChild(div)
+        //         function move(e){
+        //             // let disPos = {
+        //             //     l: e.clientX - startPos.l,
+        //             //     t: e.clientY - startPos.t
+        //             // }
+        //             div.style.left = Math.min(e.clientX,startPos.l) + 'px';
+        //             div.style.top = Math.min(e.clientY,startPos.t) + 'px';
+        //             div.style.width = Math.abs(e.clientX - startPos.l) + 'px';
+        //             div.style.height = Math.abs(e.clientY - startPos.t) + 'px';
+
+        //             lis.forEach((item,index) => {
+        //                 if(isContact(div,item)) {
+        //                     item.classList.add('active')
+        //                 }
+        //                 else{
+        //                     item.classList.remove('active')
+        //                 }
+        //             })
+        //         }
+        //         document.addEventListener('mousemove', move)
+        //         document.addEventListener('mouseup', function () {
+        //             document.removeEventListener('mousemove',move);
+        //             let actives = document.querySelectorAll('.list .active');
+        //             // activeBox.forEach(item=>{
+        //             //     bigBox.appendChild(item)
+        //             // })
+        //             console.log(actives)
+        //             actives.forEach(item => {
+                        
+        //                 bigBox.appendChild(item)
+        //             })
+                    
+        //             div.remove();
+        //         },{
+        //             once: true
+        //         })
+        //     })
+
+        //     // 检测是否碰撞
+        //     function isContact(el1,el2) {
+        //         let el1P = el1.getBoundingClientRect();
+        //         let el2P = el2.getBoundingClientRect();
+
+        //         // 没碰上
+        //         // if(
+        //         //     el1P.right < el2P.left ||
+        //         //     el1P.bottom < el2P.top ||
+        //         //     el1P.left > el2P.right ||
+        //         //     el1P.top > el2P.bottom
+        //         // )
+
+        //         if( el1P.right >= el2P.left &&
+        //             el1P.bottom >= el2P.top &&
+        //             el1P.left <= el2P.right &&
+        //             el1P.top <= el2P.bottom
+        //         ) {     // 碰上了
+        //             return true
+        //         }
+        //         else {
+        //             return false
+        //         }
+        //     }
+        // }
+    </script>
+</body>
+</html>
