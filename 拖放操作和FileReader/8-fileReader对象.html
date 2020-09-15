@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body{
+            margin:0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+    <script>
+        /*
+            1. 设置body为可放置元素
+            2. 处理放置后的行为
+        */
+
+        // 设置body为可放置元素
+        document.body.ondragover = function (e) {
+            e.preventDefault();
+            
+        }
+
+        // 处理放置后的行为
+        document.body.ondrop = function (e) {
+            // 防止浏览器打开文件这个默认行为
+            e.preventDefault()
+            e.stopPropagation()
+
+            let file = e.dataTransfer.files[0]
+
+            // 读取文件的内容
+            let fr = new FileReader()
+            fr.onload = function () {
+                // console.log(this.result)
+
+                // readAsDataURL() 方式
+                // let img = new Image() // new Image => document.createElement('img')
+                // img.src = this.result
+                // document.body.appendChild(img)
+
+                // readAsArrayBuffer( )
+                let int8Array = new Int8Array(this.result)
+                // console.log(int8Array)
+
+                int8Array.forEach(item => {
+                    console.log(String.fromCharCode(item))
+                })
+
+
+            }
+            // fr.readAsText(file) // 默认格式为 utf-8
+            // fr.readAsText(file, 'gbk') // 默认格式为 utf-8
+
+            // fr.readAsDataURL(file)
+
+            fr.readAsArrayBuffer( file )
+
+        }
+
+
+    </script>
+
+</body>
+</html>

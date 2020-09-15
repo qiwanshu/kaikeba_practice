@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		.box {
+			margin: 100px auto 0;
+			width: 800px;
+			overflow: hidden;
+		}
+		ul {
+			margin: 0;
+			padding: 10px;
+			width: 30%;
+			min-height: 40px;
+			border: 4px solid #aaaaab;
+			color: #aaaaab;
+			list-style: none;
+		}
+		ul.left {
+			float: left;
+		}
+		ul.right {
+			float: right;
+		}
+		ul.focus {
+			border-color: #5fa207;
+			border-style: dashed;
+			color: #5fa207;
+		}
+		li {
+			padding: 20px;
+			line-height: 20px;
+		}
+		li.drag {
+			background-color: #5fa207;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="box">
+		<ul class="left">
+			<li>选项一</li>
+			<li>选项二</li>
+			<li>选项三</li>
+			<li>选项四</li>
+		</ul>
+		<ul class="right"></ul>
+    </div>
+    
+    <script>
+        let liElements = document.querySelectorAll('li');
+        let leftElement = document.querySelector('.left')
+        let rightElement = document.querySelector('.right');
+        let dragElement = null
+
+        liElements.forEach(liElement => {
+            liElement.setAttribute('draggable', true)
+            liElement.ondragstart = function (e) {
+                e.dataTransfer.setData('text','')
+                this.classList.add('drag');
+                dragElement = this
+            }
+            liElement.ondragend = function () {
+                this.classList.remove('drag');
+            }
+        })
+
+        leftElement.ondragover = rightElement.ondragover = function (e) {
+            // console.log(this.contains(dragElement))
+            // console.log(dragElement.parentNode == this)
+            if(dragElement.parentNode !== this) {
+                e.preventDefault();
+                this.classList.add('focus')
+            }
+            
+        }
+
+        leftElement.ondrop = rightElement.ondrop = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.classList.remove('focus')
+            this.appendChild(dragElement)
+        }
+
+
+
+    </script>
+</body>
+</html>

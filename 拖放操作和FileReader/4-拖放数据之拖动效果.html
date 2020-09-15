@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        #box2{
+            position: absolute;
+            top: 200px;
+            left: 400px;
+            width: 400px;
+            height: 400px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <p>文本</p>
+    <div>
+        <a href="https://www.baidu.com">百度</a>
+    </div>
+    <img src="images/logo-new.png" alt="">
+
+    <!-- 设置被拖放元素的draggable属性为true -->
+    <div id="box1" draggable="true"></div>
+    <div id="box2" draggable="true"></div>
+    
+    <script>
+        /*
+            我们把拖放过程中的效果和拖放产生的内容都称为拖放数据，要对拖放数据进行操作，首先我们得先了解一个对象：DataTransfer
+        */
+
+        let box1 = document.querySelector('#box1');
+        let box2 = document.querySelector('#box2');
+        box1.ondragstart = function(e) {
+            // 如果在dragstart事件中设置了拖拽的数据，则会触发浏览器的默认行为
+            // 设置拖放内容
+            e.dataTransfer.setData('text', '拖放内容')
+
+            // 后续 dropEffect 值得白名单
+            // e.dataTransfer.effectAllowed = 'copyLink'
+            e.dataTransfer.effectAllowed = 'move'
+        }
+        box2.ondragover = function(e) {
+            e.dataTransfer.dropEffect = 'copy'
+            e.preventDefault()
+        }
+        box2.ondrop = function(e) {
+            console.log('drop')
+            // box2.appendChild(el)
+
+
+            e.preventDefault()
+            e.stopPropagation()
+        }
+    </script>
+</body>
+</html>

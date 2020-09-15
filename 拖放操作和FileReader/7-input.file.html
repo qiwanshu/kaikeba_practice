@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="f" />
+    <script>
+        let f = document.querySelector('#f');
+        f.onchange = function (e) {
+            // console.log(this.value)  // 获取到的是文件的路径 字符串
+
+            console.log(this.files)   // 获取到 fileList
+        }
+    </script>
+</body>
+</html>

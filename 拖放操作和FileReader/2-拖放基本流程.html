@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        #box2{
+            position: absolute;
+            top: 200px;
+            left: 400px;
+            width: 400px;
+            height: 400px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <p>文本</p>
+    <div>
+        <a href="https://www.baidu.com">百度</a>
+    </div>
+    <img src="images/logo-new.png" alt="">
+
+    <!-- 设置被拖放元素的draggable属性为true -->
+    <div id="box1" draggable="true"></div>
+    <div id="box2" draggable="true"></div>
+
+    <script>
+        /*
+            1. 设置被拖放元素的draggable属性为true（可以给默认可以拖拽的属性设置draggable为false，就可以阻止拖放）
+            2. Firefox如果非默认可拖放的元素，仅仅只是设置draggable 为 true，还不能使它们可拖放，需要同时设置拖放内容。
+                - draggable=true
+                - 设置拖放内容
+            3. 如果在dragstart事件中设置了拖拽的数据，则会触发浏览器的默认行为
+            4. 默认情况下，不是所有元素都可以成为放置元素，需要在dragover事件中阻止默认行为：不允许放置（dragover每次触发时都会重置默认事件）
+            5. drop事件触发时，还会有其他一些默认的行为
+            6. 在Firefox中的drop事件中，如果拖放的元素有设置具体的拖放非空内容，则会触发浏览器默认行为：新开窗口（根据内容进行访问：非链接=>访问浏览器默认搜索引擎；链接=> 访问链接地址）
+                - windows：e.preventDefault() 和 e.stopPropagation() 阻止默认行为和冒泡
+                - Mac：e.preventDefault()
+            
+        */
+
+        let box1 = document.querySelector('#box1');
+        let box2 = document.querySelector('#box2');
+        box1.ondragstart = function(e) {
+            // 如果在dragstart事件中设置了拖拽的数据，则会触发浏览器的默认行为
+            // 设置拖放内容
+            e.dataTransfer.setData('text', '拖放内容')
+            console.log('dragstart')
+        }
+        box1.ondrag = function(e) {
+            console.log('drag')
+        }
+        box1.ondragend = function(e) {
+            console.log('dragend')
+        }
+        box2.ondragenter = function() {
+            console.log('dragenter')
+        }
+        box2.ondragleave = function() {
+            console.log('dragleave')
+        }
+        box2.ondragover = function(e) {
+            // dragover每次触发时都会重置默认事件
+            console.log('dragover')
+            e.preventDefault();
+        }
+        box2.ondrop = function() {
+            console.log('drop')
+        }
+
+    </script>
+</body>
+</html>
