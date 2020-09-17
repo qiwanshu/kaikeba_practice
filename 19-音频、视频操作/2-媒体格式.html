@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <picture>
+        如果浏览器不支持jpg格式，就加载下面的png格式
+        通过设置media，如果当前浏览器窗口宽度大于600px，就加载kaikeba.png，如果小于600 就加载2.jpg
+        <source srcset="source/2.jpg" media="(max-width: 600px)">
+        <img src="source/kaikeba.png" alt="">
+    </picture>
+
+    <audio controls>
+        先加载ogg格式的音频，如果不支持，则继续加载MP3格式，依次向下直到找到支持的格式
+        <source src="source/audio/hktk.ogg" type="audio/ogg">
+        <source src="source/audio/hktk.mp3" type="audio/mp3">
+        您的浏览器不支持 HTML5 的 audio
+    </audio>
+
+    <video controls>
+        <source src="source/v.webm" type="video/webm">
+        <source src="source/v.ogg" type="video/ogg">
+        <source src="source/v.mov" type="video/mov">
+        <source src="source/v.mp4" type="video/mp4">
+        您的浏览器不支持 HTML5 的 video
+    </video>
+
+</body>
+</html>
