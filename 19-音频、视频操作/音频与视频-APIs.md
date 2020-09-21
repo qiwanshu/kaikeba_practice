@@ -55,7 +55,7 @@
 - play: 在媒体回放被暂停后再次开始时触发(即，在一次暂停事件后恢复媒体回放)。
 - playing: 媒体开始播放时触发(不论是初次播放、在暂停后恢复、或是在结束后重新开始)。
 - progress: 告知媒体相关部分的下载进度时周期性地触发，有关媒体当前已下载总记的信息可以在元素的buffered属性中获取到。
-- ratechange: 在回放变化是触发
+- ratechange: 在回放变化是触发（在播放速率变化时触发）
 - seeked: 在跳跃操作完成时触发
 - seeking: 在跳跃操作开始时触发
 - stalled: 在尝试获取媒体数据，但数据不可用时触发
@@ -102,7 +102,6 @@
 
 
 ## 全屏
-
 - requestFullscreen 方法：发出异步请求使元素进入全屏模式，注意：与play方法特性一样，需要用户交互代码中才能执行，不能程序主动调用
 - exitFullscreen 方法：退出全屏，该方法只能是document或shadowRoot调用
 - fullscreenElemeng 属性：当前是否有全屏元素，该属性只能是document或shadowRoot调用
