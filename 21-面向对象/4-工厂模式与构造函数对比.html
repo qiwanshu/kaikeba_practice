@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /*
+            工厂模式
+
+            构造函数
+                - 写法简单
+                - 性能更好
+            
+                
+        */
+
+        // 工厂模式 
+        function Fn() {
+            // 原料
+            let object = {};
+
+            // 加工
+            object.name="小明";
+            object.hobby = function() {
+                console.log('打游戏')
+            };
+
+            // 出厂
+            return object
+        }
+
+        // 构造函数
+        function FnC() {
+            this.name = '小红';
+
+            // 耗费内存
+            // this.hobby = function () {
+            //     console.log('唱歌')
+            // }
+        }
+
+        // FnC.prototype.hobby = function() {
+        //     console.log('唱歌')
+        // }
+        console.dir(FnC.prototype)
+
+        FnC.prototype = {
+            contructor: FnC,   // 这种写法会覆盖 原型上的预定义属性contructor， 所以要手动加上
+            hobby() {
+                console.log('唱歌')
+            }
+        }
+
+        console.dir(FnC.prototype)
+
+
+    </script>
+</body>
+</html>

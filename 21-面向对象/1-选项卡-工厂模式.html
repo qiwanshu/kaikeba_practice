@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="mydiv1">
+        <button style="background: red">按钮一</button>
+        <button>按钮二</button>
+        <button>按钮三</button>
+        <button>按钮四</button>
+        <p style="display: block;">div1</p>
+        <p style="display: none;">div2</p>
+        <p style="display: none;">div3</p>
+        <p style="display: none;">div4</p>
+    </div>
+    <div class="mydiv2">
+        <button style="background: red">按钮一</button>
+        <button>按钮二</button>
+        <button>按钮三</button>
+        <p style="display: block;">div1</p>
+        <p style="display: none;">div2</p>
+        <p style="display: none;">div3</p>
+    </div>
+    <button class="nextPre">点击我第一个选项卡下一页切换</button>
+    <button class="autoPlay">点击按钮第二个选项卡有自动轮播功能</button>
+
+    <script>
+        function Tab(btns, ps) {
+            // 原料
+            let object = {}
+
+            // 加工
+            object.totle = btns.length;
+
+           
+
+            object.psFor = function (k) {
+                ps.forEach((_item, _index) => {
+                    if (_index == k) {
+                        btns[_index].style.background = 'red'
+                        _item.style.display = 'block';
+                        object.current = k
+                    } else {
+                        btns[_index].style.background = ''
+                        _item.style.display = 'none'
+                    }
+                }) 
+            }
+
+            btns.forEach((item, index) => {
+                item.onclick = function () {
+                    object.psFor(index)
+                }
+            });
+
+            // function psFor(k) {
+            //     ps.forEach((_item, _index) => {
+            //         if (_index == k) {
+            //             btns[_index].style.background = 'red'
+            //             _item.style.display = 'block'
+            //         } else {
+            //             btns[_index].style.background = ''
+            //             _item.style.display = 'none'
+            //         }
+            //     }) 
+            // }
+
+            // return psFor
+
+            // 出厂
+            return object
+        }
+
+        let btns1 = document.querySelectorAll('.mydiv1 button')
+        let ps1 = document.querySelectorAll('.mydiv1 p');
+        let nextPre = document.querySelector('.nextPre');
+        // Tab(btns1, ps1);
+        // let num1 = 0
+        // nextPre.onclick = function ( ) {
+        //     num1 ++ ;
+        //     num1 = num1 > 2? 0: num1;
+        //     ps1.forEach((_item, _index) => {
+        //         if (_index == num1) {
+        //             btns1[_index].style.background = 'red'
+        //             _item.style.display = 'block'
+        //         } else {
+        //             btns1[_index].style.background = ''
+        //             _item.style.display = 'none'
+        //         }
+        //     }) 
+        // }
+
+        let tab1 = Tab(btns1, ps1);
+        // console.dir(tab1)
+        nextPre.onclick = function () {
+            let num1 = tab1.current;
+            num1 ++ ;
+            num1 = num1 > tab1.totle-1? 0: num1;
+            tab1.psFor(num1)
+        }
+
+
+
+        let btns2 = document.querySelectorAll('.mydiv2 button')
+        let ps2 = document.querySelectorAll('.mydiv2 p');
+        let autoPlay = document.querySelector('.autoPlay');
+        let tab2 = Tab(btns2, ps2);
+        autoPlay.onclick = function () {
+            let num2 = 0
+            setInterval(function() {
+                num2 ++ ;
+                num2 = num2 > tab2.totle-1? 0: num2;
+                tab2.psFor(num2)
+            }, 1000)
+        }
+
+    </script>
+</body>
+</html>

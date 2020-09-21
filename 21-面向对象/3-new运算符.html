@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /*
+            new 运算符的作用
+                - 执行函数
+                - 自动创建一个空对象
+                - this绑定到这个空对象
+                - 把空对象指向另外一对象(实例化出来的对象)
+                - 隐式返还this
+        */
+
+        function Fn() {
+            this.name="Daisy";   // this 绑定到自动创建的一个空对象
+
+            // 耗费内存
+            this.hobby = function () {
+                console.log('喜欢瑜伽')
+            }
+            // console.log(this)
+            // console.log('自动执行这个函数')
+        }
+
+        // console.log(Fn.prototype.constructor === Fn)
+
+        // Fn 后面无需加()，也会执行， 加括号也会执行（效果一样）
+        // let fn = new Fn
+        let fn = new Fn();
+ 
+        // 构造函数创建的对象 指向 实例化出来的对象
+        // console.log(fn)   
+
+
+        // 手动实现一个 new 功能
+        function myNew(constructor, ...arguments ) {
+
+            // 传入的 constructor 相当于是构造函数
+
+            let object = {};   // 自动创建一个空对象
+            constructor.call(object, ...arguments)   // 将this 绑定到这个空对象上， 并且执行这个函数（构造函数）
+            // console.log(...arguments)
+            object.__proto__ = constructor.prototype   // 实例化出来的对象 的 __proto__ 属性 等于 构造函数的 prototype
+            return object  // 返还这个对象
+        } 
+
+        let fn2 = myNew(Fn, 1,2,3);
+        // console.log(fn2)
+        // console.log(fn2.__proto__ === Fn.prototype)
+
+    </script>
+</body>
+</html>
