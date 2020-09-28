@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Dad() {
+            this.name = '老王';
+            this.age = 50
+        };
+        Dad.prototype.hobby = function () {
+            console.log('喜欢游泳')
+        };
+
+        function Son() {
+            // this.name = '小明';
+            // this.age = 20
+            Dad.call(this)
+        };
+
+        // 浅拷贝-> 传址，当Son 的prototype 发生改变，父类 Dad 的 prototype 也会发生改变
+        Son.prototype = Dad.prototype 
+
+        // 使用深拷贝
+        Son.prototype = deepCopy(Dad.prototype)
+
+
+        Son.prototype.hobby = function () {
+            console.log('喜欢旅游')
+        }
+
+        let dad = new Dad()
+        dad.hobby()
+        let son = new Son()
+        son.hobby()
+
+
+        // 深拷贝函数
+        function deepCopy(obj) {
+            let newObj = Array.isArray(obj)? []: {};
+            // console.log(typeof obj)
+
+            // 循环
+            for( let i in obj) {
+                if(obj.hasOwnProperty(i)) {
+                    if(typeof obj[i] == 'object') {
+                        if(obj[i] === null) {
+                            newObj[i] = null
+                        } else {
+                            newObj[i] = deepCopy(obj[i])
+                        }
+                    } else {
+                        newObj[i] = obj[i]
+                    }
+                } 
+            }
+            return newObj
+        }
+
+    </script>
+</body>
+</html>

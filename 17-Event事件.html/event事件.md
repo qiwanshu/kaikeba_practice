@@ -50,6 +50,9 @@
 - contextmenu 事件 
   - return false 和 Event.preventDefault() 阻止默认事件   
 
+- 兼容
+  - event || window.event
+
 - 键盘事件
   - keydown、keyup
   - Event.keyCode、Event.key

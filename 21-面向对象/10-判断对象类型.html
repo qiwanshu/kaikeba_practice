@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            判断对象类型的方法
+                - typeof   对象object、数组array、null 都会被判断为 object 类型,返回'object'
+                - instanceof
+                -  Object.prototype.toString.call(str)   精准判断
+        */
+
+        let obj = {name: 'daisy', age: 12}
+        let arr = [1,2]
+        let n = null
+        let str = 'abc'
+        // console.log(typeof null)
+
+        // console.log(arr instanceof Object)  // 返回true
+
+        // let res = Object.prototype.toString.call(str);
+        let res = Object.prototype.toString.call(str)   // [object String]
+        console.log(res)
+
+
+    </script>
+</body>
+</html>

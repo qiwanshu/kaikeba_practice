@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /*
+            原型链： 原型链是指对象在访问属性或方法时的查找方式
+
+            1.当访问一个对象的属性或方法时，会先在对象自身上查找属性或方法是否存在，如果存在就使用对象自身的属性或方法。如果不存在就去创建对象的构造函数的原型对象中查找 ，依此类推，直到找到为止。如果到顶层对象中还找不到，则返回 undefined。
+
+            2.原型链最顶层为 Object 构造函数的 prototype 原型对象，给 Object.prototype 添加属性或方法可以被除  null 和 undefined 之外的所有数据类型对象使用。       
+        */
+
+        function Person() {
+            this.age = 2
+        }
+        Person.prototype.hobby = function () {
+            console.log(11)
+        }
+
+        console.log(Person.prototype)
+        // console.log(Person.prototype.prototype)
+        console.log(Person.prototype.__proto__)
+        console.log(Person.prototype.__proto__.__proto__)  //
+        console.log(Object.prototype)
+
+        // let p = new Person()
+        // console.log(p)
+
+    </script>
+</body>
+</html>

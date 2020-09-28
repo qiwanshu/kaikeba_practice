@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 简单数据类型 是传值Number、String、Boolean、Null、Undefined ；  复杂是传址Array、Date、Math、RegExp、Object、Function等
+        /*
+            深拷贝与浅拷贝
+                let obj1 = obj 拷贝的是数据在内存中的地址，当 obj1 变化，obj 也会发生改变
+                Object.assign(obj1, obj) obj 只有一层时，是深拷贝，如果 obj 有多层，第一层是深拷贝，第二层之后是浅拷贝(即传址)
+                展开运算符： 第一层深拷贝，第二层之后浅拷贝
+                obj1 = JSON.parse(JSON.stringify(obj))：深拷贝，但是无法拷贝 undefined 和 function
+                深拷贝函数  
+                    - 使用 for...in 循环加递归 实现一层一层拷贝
+                    - 判断属性是自身属性，还是原型上的属性
+                        hasOwnProperty
+        */
+
+        let a = 1;
+        let obj = {
+            name: '老王',
+            age: 30,
+            children: [
+                {
+                    name: '小明',
+                    age: 8
+                }
+            ],
+            fn: function () {
+                console.log(1)
+            },
+            k: null,
+            w: undefined
+        }
+
+        // let obj1 = JSON.parse(JSON.stringify(obj))
+        // console.log(obj1)
+
+        // let obj1 = obj;
+        // obj1.name="123"
+        // console.log(obj)  // obj 的 name 会变成 "123"
+
+        // let obj1 = {}
+        // Object.assign(obj1, obj);
+        // obj1.name = 'www';
+        // obj1.children[0].name = '哈哈哈'
+        // console.log(obj)  // name 还是"老王" ，obj1.children[0].name 变成了 '哈哈哈'
+
+        obj.__proto__.hobby = 'o'
+
+        // console.log(obj.hasOwnProperty('hobby'))
+        
+        let obj1 = deepCopy(obj)
+        console.log(obj1)
+
+
+        // 深拷贝函数
+        function deepCopy(obj) {
+            let newObj = Array.isArray(obj)? []: {};
+            // console.log(typeof obj)
+
+            // 循环
+            for( let i in obj) {
+                // console.log(i, obj[i])
+
+                // for...in 循环 会循环原型上的东西， 但是我们不希望拷贝原型上的东西
+                // console.log(i, obj[i])
+                // console.log(obj[i])
+                // 判断属性是否自身属性
+                if(obj.hasOwnProperty(i)) {
+                    // console.log(i, obj[i])
+                    if(typeof obj[i] == 'object') {
+                        if(obj[i] === null) {
+                            newObj[i] = null
+                        } else {
+                            newObj[i] = deepCopy(obj[i])
+                        }
+                    } else {
+                        newObj[i] = obj[i]
+                    }
+                } else {
+                    // console.log('__proto__')
+                }
+                
+            }
+
+            return newObj
+            
+        }
+
+
+    </script>
+</body>
+</html>
