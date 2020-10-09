@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function event1() {
+            console.log('很多逻辑aaa') // a写的
+        }
+        function event2() {
+            console.log('很多逻辑bbb') // b写的
+        }
+
+        // 使用类的方式自定义事件
+
+        class MyEvent{
+            constructor() {
+                this.handle = {}
+            }
+
+            // 添加自定义事件
+            addEvent(eventName, fn) {
+                if(typeof this.handle[eventName] == 'undefined') {
+                    this.handle[eventName] = []
+                }
+                this.handle[eventName].push(fn)
+            }
+
+            // 触发自定义事件
+            triggerEvent(eventName) {
+                this.handle[eventName].forEach(v => {
+                    v()
+                })
+            }
+
+            // 移除自定义事件
+            removeEvent(eventName, fn) {
+                if(!fn in this.handle[eventName]) {
+                    return
+                }
+                for(let i = 0; i <  this.handle[eventName].length; i++) {
+                    if(this.handle[eventName][i] == fn) {
+                        this.handle[eventName].splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+
+        let myevent = new MyEvent
+        myevent.addEvent('myfn', event1)
+        myevent.addEvent('myfn', event2)
+        myevent.removeEvent('myfn', event1)
+        myevent.triggerEvent('myfn')
+
+    </script>
+</body>
+</html>

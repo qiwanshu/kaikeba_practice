@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a > 长按</a>
+    <script>
+        /*
+            Event()构造函数创建一个新的Event。
+            event = new Event（typeArg，eventInit）;
+                -typeArg: 事件名称。
+                - eventInit: 这是一个对象，包含以下字段：
+                    - bubbles:(可选）Boolean指示事件是否冒泡。默认是false。
+                    - cancelable:(可选）a Boolean表示是否可以取消该事件。默认是false。
+            dispatchEvent派发事件
+                document.dispatchEvent(_event);
+                myDom.dispatchEvent(evt);
+
+            自定义的事件可以绑定到DOM元素上定义事件处理逻辑，然后通过dispatchEvent派发事件。
+                var _event = new Event('look', {"bubbles":true, "cancelable":false});
+                document.addEventListener('look', function(){
+                    console.log('lootEvent_document');
+                });
+                myDom.addEventListener('look', function(){
+                    console.log(lootEvent_myDom);
+                });
+                myDom.dispatchEvent(_event);  //lootEvent_myDom lootEvent_document
+                document.dispatchEvent(_event);  //lootEvent_document
+        */
+
+
+        // 自定义长按事件
+
+        // 长按: 当鼠标在一个元素上长按超过 750 毫秒触发
+
+        // 自定义一个新事件
+        let longTap = new Event("longTap", {
+            bubbles: true // 如果设置为 false 表示这个事件不冒泡，那就只能在那个元素上触发，那就只有这个一个元素是有这个事件的
+        })
+
+        let timer = 0;
+        {
+            let a = document.querySelector('a');
+            a.addEventListener('mousedown', function () {
+
+                timer = setTimeout(function () {
+                    a.dispatchEvent(longTap) // 在 a 标签触发，a 及它所有的父级都会有这个事件
+                    // 如果是document触发，就只有 document 及 它的父级有这个事件，document 的内容就没有了
+                }, 750)
+            });
+
+            a.addEventListener('mouseup', function() {
+                clearTimeout(timer)
+            });
+
+            document.addEventListener('longTap', function (e) {
+                if(e.target == a){
+                    console.log("这是一个长按事件");
+                } 
+            })
+        }
+
+        /*
+            new CustomEvent('eventName', {
+                detail: {
+                    // 参数
+                }
+            })
+        */
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button>点击</button>
+
+    <script>
+
+        // 自定义事件，把函数当事件执行
+
+        function event1() {
+            console.log('很多逻辑aaa') // a写的
+        }
+        function event2() {
+            console.log('很多逻辑bbb') // b写的
+        }
+
+        // event1()
+        // event2()
+        // document.querySelector('button').addEventListener('click', event1)
+        // document.querySelector('button').addEventListener('click', event2)
+
+
+        let handle = {
+            // "evnet":[event1,event2,....]
+        };
+        // 添加自定义事件
+        function addEvent(eventName, fn) {
+            if(typeof handle[eventName] == 'undefined'){
+                handle[eventName] = []
+            }
+            handle[eventName].push(fn)
+            /*
+                handle = {
+                    event: [fn1, fn2, fn3, ...]
+                }
+            */  
+        }
+        // 触发自定义事件
+        function trigger(eventName) {
+            handle[eventName].forEach(v => {
+                v()   // 执行handle[eventName] 里面的函数
+            })
+        }
+        // 移除自定义事件
+        function removeEvent(eventName, fn) {
+            if (!fn in handle[eventName]) {
+               return
+            }
+            for(let i = 0; i < handle[eventName].length; i++) {
+                if(handle[eventName][i] == fn) {
+                    handle[eventName].splice(i,1);
+                    break;
+                }
+            }
+        }
+
+        // 绑定事件
+        addEvent('myEvent', event1)
+        addEvent('myEvent', event2)
+        // 触发事件
+        // trigger('myEvent');
+        // 移除事件
+        removeEvent('myEvent', event2)
+        trigger('myEvent');
+
+
+
+
+    </script>
+</body>
+</html>

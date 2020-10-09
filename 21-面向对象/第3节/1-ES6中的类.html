@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // ES5 构造函数
+        function Person1(name) {
+            this.name = name;
+            this.height = '180cm'
+        }
+        Person1.prototype.fn = function() {
+            console.log('fn...')
+        }
+
+        let p2 = new Person1("lisi")
+        // console.log(p2)
+        // console.log(Person1.prototype)
+
+        // ES6 类 的写法
+        class Person{
+
+            // 预定义属性 相当于 ES5 中的构造函数(Person.prototype.constructor)
+            constructor(name) {
+                this.name = name;
+                this.height = '180cm'
+            }
+
+            fn() {
+                console.log('fn...')
+            }
+            getName() {
+                console.log(this.name)
+            }
+
+            // 静态属性和方法，静态方法可直接在类里面调用，不需要实例化
+            static age = 20;
+            static sFn() {
+                console.log('静态方法...')
+            }
+
+        }
+
+        // 静态属性和方法
+        Person.num = 9;
+        Person.hobby = function () {
+            console.log('hobby...')
+        }
+
+        // 调用静态属性和方法
+        // console.log(Person.age, Person.num)
+        // Person.sFn()
+        // Person.hobby()
+
+        // ES6 中的类也有原型，其中的方法都是挂到原型上的
+        // console.log(Person.prototype)
+
+        // 类的实例化
+        let p1 = new Person('zhangsan');
+        // console.log(p1.age)   // 实例化对象无法调取类的静态属性和方法
+
+        // 类的继承  extends
+        class Son extends Person{
+            constructor(name) {
+                super(name)  // 父类的构造函数
+                this.eyes = 3
+            }
+
+            // 重写了父类的 fn 
+            fn(){
+                // 解决
+                super.fn()
+                console.log("子类的fn...")   
+            }
+
+            otherFn() {
+                console.log('otherFn...')
+            }
+        }
+
+        let student = new Son('小明');
+        console.log(student.name)
+        student.fn()
+
+
+
+
+    </script>
+</body>
+</html>

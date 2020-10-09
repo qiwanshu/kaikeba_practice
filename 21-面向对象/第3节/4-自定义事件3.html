@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            EventTarget: 封装好的自定义事件, 功能相当于MyEvent
+        */
+
+        // 用法
+        function event1() {
+            console.log('event1')
+        }
+        function event2() {
+            console.log('event2')
+        }
+
+        let event = new Event('eventName', {});
+        document.addEventListener('eventName', event1)
+        document.addEventListener('eventName', event2)
+        document.dispatchEvent(event)
+
+
+
+        // 其他类继承EventTarget
+        // class Example extends EventTarget{
+        //     constructor() {
+        //         this.init()
+        //     }
+
+        //     init() {
+        //         // 实例化一个 event
+        //         let myevent = new Event('eventName')
+
+        //         // 添加自定义事件
+        //         this.addEventListener('eventName', fn)
+
+        //         // 触发自定义事件
+        //         this.dispatchEvent(myevent)
+        //     }
+        // }
+
+
+
+
+    </script>
+</body>
+</html>

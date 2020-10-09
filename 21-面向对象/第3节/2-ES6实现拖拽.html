@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mydiv1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+
+        .mydiv2 {
+            width: 100px;
+            height: 100px;
+            background: blue;
+            position: absolute;
+            left: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mydiv1"></div>
+    <div class="mydiv2"></div>
+
+    <script>
+
+        class Drag {
+            constructor(ele) {
+                this.ele = ele;
+                this.downFn()
+            }
+
+            downFn() {
+                this.ele.addEventListener('mousedown', (e) => {
+                    this.startOp = {
+                        left: this.ele.offsetLeft,
+                        top: this.ele.offsetTop
+                    }
+                    // console.log(e.clientX)
+                    this.startX = e.clientX;
+                    this.startY = e.clientY;
+
+                    this.fn = this.getPosition.bind(this)
+                    this.moveFn()
+                    this.upFn()
+                })
+            }
+
+
+            moveFn() {
+                document.addEventListener('mousemove', this.fn)
+                
+            }
+
+            getPosition(e) {
+                // console.log(this)
+                // console.log(e)
+                this.disX = e.clientX - this.startX;
+                this.disY = e.clientY - this.startY;
+                this.ele.style.left = this.startOp.left + this.disX + 'px'
+                this.ele.style.top = this.startOp.top + this.disY + 'px'
+            }
+            
+
+            upFn() {
+                document.addEventListener('mouseup', () => {
+                    console.log(1)
+                    document.removeEventListener('mousemove', this.fn)
+                }, {
+                    once: true
+                })
+            }
+        }
+
+        let div1 = document.querySelector('.mydiv1');
+        let drag1 = new Drag(div1)
+
+    </script>
+</body>
+</html>
