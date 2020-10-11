@@ -32,17 +32,17 @@
 
 </body>
 <script>
-//  console.log($("div"))
 // 方式一
 // console.log( $(".mydiv1"));
+// console.log( $("div"));
 // 方式二
 // $(function(){ console.log(111)})
 // 方式三
 // let res = $(document.querySelectorAll("div"))
 // console.log(res);
-// console.log(document.querySelector("div").length)
 
 // $("div").click(function(){
+//     console.log(this)
 //     console.log(1111);
 // });
 
@@ -54,8 +54,9 @@
 //     console.log(1111);
 // });
 // console.log($("div"))
-// let res = $("div").eq(0).end();
-// console.log(res);
+// let res = $("div").eq(0);
+let res = $("div").eq(0).end();
+console.log(res);
 
 
 // 第一种
@@ -64,9 +65,28 @@
 // 第二种
 // $(".mydiv1").css("background","yellow");
 // 第三种
-
-// $(".mydiv1").css({background:"black",height:300});
-$(".mydiv1").css({height:"1em"})
+// $("div").css({background:"black",height:'300px'});
+// $(".mydiv1").css({height:"1em"})
 // $.cssNumber.pm = true;
+
+// let obj = {}
+// obj[0] = 1
+// console.log(obj)
+
+// $.cssHooks['wh'] = {
+//     get(ele){
+//         console.log("get..")
+//         return "获取数据";
+//     },
+//     set(ele,value){
+//         console.log("set..")
+//         ele.style['width'] = value;
+//         ele.style['height'] = value;
+//     }
+// }
+
+// let res = $("div").css("wh","300px");
+// console.log(res);
+
 </script>
 </html>
