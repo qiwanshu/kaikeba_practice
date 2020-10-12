@@ -80,19 +80,30 @@ class Jq{
             // 设置样式
             for(let i = 0; i < this.length; i++) {
                 // this[i].style[arg[0]] = arg[1]
-                this.setStyle(this[i], arg[0], arg[1])
+                if(arg[0] in $.cssHooks) {
+                    $.cssHooks[arg[0]].set(this[i], arg[1])
+                } else {
+                    this.setStyle(this[i], arg[0], arg[1]);
+                }
+                
             }
         } else {
             if(typeof arg[0] === 'string'){
-                this.getStyle(this[0], arg[0])
-            } else {
-                console.log(arg)
-                // arg[0]
+                if(arg[0] in $.cssHooks) {
+                    // console.log(arg[0])
+                    return $.cssHooks[arg[0]].get(this[0])
+                } else {
+                    this.getStyle(this[0], arg[0])
+                }
                 
+            } else {
                 for(let i = 0; i < this.length; i++) {
                     for (let k in arg[0]) {
                         // console.log(k)
                         // this[i].style[k] = arg[0][k]
+                        if( k in $.cssHooks ) {
+                            $.cssHooks[k].set(this[i], arg[0][k])
+                        }
                         this.setStyle(this[i], k, arg[0][k])
                     }
                 }
@@ -106,10 +117,41 @@ class Jq{
     }
 
     setStyle(ele, styleName, targetStyle) {
+        if (typeof styleValue == "number" && !(styleName in $.cssNumber)) {
+            styleValue = styleValue + "px";
+        }
         ele.style[styleName] = targetStyle
     }
 }
 
 function $(arg) {
     return new Jq(arg)
+}
+
+$.cssNumber = {
+    animationIterationCount: true,
+    columnCount: true,
+    fillOpacity: true,
+    flexGrow: true,
+    flexShrink: true,
+    fontWeight: true,
+    gridArea: true,
+    gridColumn: true,
+    gridColumnEnd: true,
+    gridColumnStart: true,
+    gridRow: true,
+    gridRowEnd: true,
+    gridRowStart: true,
+    lineHeight: true,
+    opacity: true,
+    order: true,
+    orphans: true,
+    pm: true,
+    widows: true,
+    zIndex: true,
+    zoom: true
+}
+
+$.cssHooks = {
+    
 }

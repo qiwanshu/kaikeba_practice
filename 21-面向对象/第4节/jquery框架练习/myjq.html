@@ -55,8 +55,8 @@
 // });
 // console.log($("div"))
 // let res = $("div").eq(0);
-let res = $("div").eq(0).end();
-console.log(res);
+// let res = $("div").eq(0).end();
+// console.log(res);
 
 
 // 第一种
@@ -85,8 +85,23 @@ console.log(res);
 //     }
 // }
 
+// let res = $("div").css("wh");
 // let res = $("div").css("wh","300px");
+// let res = $("div").css({"wh": "300px"});
 // console.log(res);
+
+$.cssHooks['bc'] = {
+    get(ele){
+        // console.log("get..")
+        return window.getComputedStyle(ele, null)['bc'];
+    },
+    set(ele,value){
+        // console.log("set..")
+        ele.style['backgroundColor'] = value;
+    }
+}
+let res = $(".mydiv2").css({"bc": "green"});
+console.log(res);
 
 </script>
 </html>
