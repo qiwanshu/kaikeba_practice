@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="Kvue.js" type="module"></script>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+        <div>
+            <span>{{ message }}</span>
+        </div>
+        <div v-html="hData"></div>
+        <input type="text" v-model="mData" /> {{mData}}
+    </div>
+
+    <script type="module">
+        import Kvue from './Kvue.js'
+        let vm = new Kvue({
+            el: '#app',
+            data: {
+                message: 'test data',
+                hData: '<p>html data</p>',
+                mData: 'model data'
+            }
+        });
+
+        // vm.options.data.message='123'
+    </script>
+</body>
+</html>

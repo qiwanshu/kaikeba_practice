@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+            Object.defineProperty(obj, prop, descriptor)
+                - obj: 要定义属性的对象
+                - prop: 要定义或修改的属性的名称或 Symbol
+                - descriptor: 要定义或修改的属性描述符
+                在ES6中，由于 Symbol类型的特殊性，用Symbol类型的值来做对象的key与常规的定义或修改不同，而Object.defineProperty 是定义key为Symbol的属性的方法之一。
+                通过赋值操作添加的普通属性是可枚举的，在枚举对象属性时会被枚举到（for...in 或 Object.keys 方法），可以改变这些属性的值，也可以删除这些属性。这个方法允许修改默认的额外选项（或配置）。默认情况下，使用 Object.defineProperty() 添加的属性值是不可修改(immutable)的
+        */
+       // mvvm; 数据驱动，数据优先；
+        const object1 = {};
+        Object.defineProperty(object1, 'property1', {
+            value: 42,
+            writable: true
+        })
+        Object.defineProperty(object1, 'property2', {
+            value: 23,
+            writable: true
+        })
+        // object1.property1 = 77
+        // console.log(object1)
+
+        // console.log(Object.keys(object1))
+
+        // const object2 = {
+        //     property1: 33,
+        //     property2: 44
+        // }
+        // console.log(Object.keys(object2))
+
+        // 数据劫持
+        let myObj = {}
+        Object.defineProperty(myObj, 'name', {
+            configurable: true, // 默认 false
+            enumerable: true,
+            get() {
+                console.log('get...name');
+                return 'ws'
+            },
+            set(newValue) {
+                console.log(newValue)
+                myObj.name = newValue
+            }
+        })
+        Object.defineProperty(myObj, 'age', {
+            configurable: true,
+            enumerable: true,
+            get() {
+                console.log('get...age');
+                return 12
+            },
+            set(newValue) {
+                console.log(newValue)
+                myObj.age = newValue
+            }
+        })
+
+        /*
+            configurable: 可配置，configurable 特性表示对象的属性是否可以被删除，以及除 value 和 writable 特性外的其他特性是否可以被修改。
+        */
+
+        myObj.name   // 调取myObj.name，会走name里面的 get 方法
+        console.log(myObj)
+        // myObj.age = 23
+        // myObj.name = "王五";  // 设置myObj.name，会调取name 里面的 set 方法， 同理，age也一样
+        // delete myObj.name   // configurable 为false时 无法删除
+        console.log(myObj)
+
+        /* 
+            enumerable: 可枚举   （默认false）
+                - for(let i in myobj){
+                    console.log(i);
+                }
+                - Object.keys();
+                - JSON.stringify
+                - Object.assign
+        */
+        // for(let i in myObj){
+        //     console.log(i)
+        // }
+        // console.log(Object.keys(myObj))
+        // console.log(JSON.stringify(myObj))
+        // console.log(Object.assign({}, myObj))
+
+
+        let obj = {
+            color: 'red',
+            height: 23
+        }
+        // console.log(obj);
+        let keys = Object.keys(obj);
+        // console.log(keys)
+        keys.forEach(key => {
+            // Object.defineProperty(obj, key, {
+            //     configurable: true,
+            //     enumerable: true,
+            //     get(){
+            //         return obj[key]
+            //     },
+            //     set(newValue) {
+            //         console.log('set...');
+            //         // obj[key] = newValue
+            //     }
+            // })
+            fn(obj, key, obj[key])
+        })
+
+        function fn(obj, key, value) {
+            Object.defineProperty(obj, key, {
+                
+                configurable: true,
+                enumerable: true,
+                get(){
+                    return value
+                },
+                set(newValue) {
+                    console.log(this) // this 指向obj
+                    console.log('set...');
+                    value = newValue
+                }
+            })
+        }
+
+        // console.log(obj);
+        obj.height = 123
+        // console.log(obj);
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            const p = new Proxy(target, handler)
+                - target: 要使用 Proxy 包装的目标对象（可以是任何类型的对象，包括原生数组，函数，甚至另一个代理）。
+                - handler: 一个通常以函数作为属性的对象，各属性中的函数分别定义了在执行各种操作时代理 p 的行为。
+
+            handler 对象的方法:
+                - handler.get(): 属性读取操作的捕捉器，可以对获取属性进行监听
+                - handler.set(): 属性设置操作的捕捉器，可以对获取设置进行监听
+                - handler.has(): in 操作符的捕捉器。
+                更多信息： https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy
+        */
+
+        let myobj = {
+            name: 'zhansan',
+            age: 14
+        }
+        let obj = new Proxy(myobj, {
+            get(target, key) {
+                // console.log(this)
+                // console.log('get...', target); // target 就是，myobj
+                return key in target? target[key]: 37 // 当对象中不存在属性名时，返回37
+            },
+            set(target, key, value) {
+                console.log('set...');
+                target[key] = value
+            }
+        });
+        // console.log(obj)
+        // console.log(myobj)
+        // console.log(obj.name);
+        // obj.age = 23
+        console.log(obj)
+        obj.height = '180'
+        console.log('height' in obj, obj.height)
+        console.log('weight' in obj, obj.weight)
+
+    </script>
+</body>
+</html>

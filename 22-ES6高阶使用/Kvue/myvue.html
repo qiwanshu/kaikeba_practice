@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="Kvue4.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{message}} 7890 {{message}}
+        <div>
+            <span>
+                <span>
+                    {{message}}
+                </span>
+            </span>
+        </div>
+        <div v-html="htmldata"></div>
+        <input type="text" v-model="modeldata" />{{modeldata}}
+    </div>
+
+    <script>
+        let vm = new Kvue({
+            el:"#app",
+            data:{
+                message:"测试数据",
+                htmldata: '<p>段落</p>',
+                modeldata: '双向绑定数据'
+            }
+        })
+
+        // vm.options.data.message = '新数据'   // 当没有监听数据变化，执行这行代码没有任何反应
+        // console.log(vm.options.data)
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /*
+           1: 2/1   --- 
+           2: 3/2   --- 
+           3: 5/3
+           4: 8/5
+           5: 13/8
+           6: 21/13
+        */
+        
+        function fn(n) {
+            let a = 2;
+            let b = 1;
+            let result = 0;
+            // for (let i = 0; i < n; i++ ) {
+            //     result += a/b;
+            //     let c = b
+            //     b = a;
+            //     a = a+c;
+            //     // console.log(a, b)
+            // }
+            let i = 0
+            while(i < n) {
+                result += a/b;
+                let c = b
+                b = a;
+                a = a+c;
+                i++;
+                // console.log(a, b, result)
+                
+            }
+            return result
+        }
+
+        console.log(fn(20))
+    </script>
+</body>
+</html>

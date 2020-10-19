@@ -21,7 +21,7 @@
   - 注释节点：8
   - 文档节点：9
 - 节点名称 --- nodeName
-  - 元素节点：与标签名相同(大写)
+  - 元素节点：与标签名相同(大写)  (node.attributes: 元素里面的属性)
   - 文本节点：为#text	 (node.textContent: 获取设置文本节点内容)
   - 注释节点：为#comment
   - 文档节点：为#document    
