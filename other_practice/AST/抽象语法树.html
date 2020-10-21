@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            
+        */
+
+        function add(a, b) {
+            return a + b
+        }
+        /*
+            https://blog.csdn.net/huangpb123/article/details/84799198
+            首先，我们拿到的这个语法块，是一个FunctionDeclaration(函数定义)对象。
+            用力拆开，它成了三块：
+                - 一个id，就是它的名字，即add
+                    add没办法继续拆下去了，它是一个最基础Identifier（标志）对象，用来作为函数的唯一标志，就像人的姓名一样。
+                - 两个params，就是它的参数，即[a, b]
+                    params继续拆下去，其实是两个Identifier组成的数组,之后也没办法拆下去了。
+                - 一块body，也就是大括号内的一堆东西
+                    接下来，我们继续拆开body
+                    我们发现，body其实是一个BlockStatement（块状域）对象，用来表示是{return a + b}
+                    打开Blockstatement，里面藏着一个ReturnStatement（Return域）对象，用来表示return a + b
+                    继续打开ReturnStatement,里面是一个BinaryExpression(二项式)对象，用来表示 a + b
+                    继续打开BinaryExpression，它成了三部分，left，operator，right
+                        - operator 即 +
+                        - left 里面装的，是Identifier对象 a
+                        - right 里面装的，是Identifer对象 b
+        */
+    </script>
+</body>
+</html>

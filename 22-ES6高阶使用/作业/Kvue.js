@@ -1,9 +1,10 @@
-import compile from './compile'
-class Kvue extends EventTarget{
+import Compile from './compile.js'
+class Kvue{
     constructor(options) {
-        super();
+        // super();
         this.options = options
-        compile(document.querySelector(this.options.el));
+        // compile(document.querySelector(this.options.el));
+        this.compile = new Compile(options)  //Compile类中的 this 指向 实例化对象 this.compile，this.compile 等同于Compile类中的this
         this.observer(this.options.data)
     }
 
@@ -44,7 +45,7 @@ class Kvue extends EventTarget{
                 let event = new CustomEvent(key, {
                     detail: value
                 });
-                _this.dispatchEvent(event);
+                _this.compile.dispatchEvent(event);
                 target[key] = value;
                 return true
             }
@@ -99,3 +100,5 @@ class Kvue extends EventTarget{
     //     })
     // }
 }
+
+export default Kvue
