@@ -135,6 +135,7 @@ serve.listen(3000);
   1、创建自定义模块
 
   - 引入一个文件 形式模块
+    - require：nodejs 中的 common 规范，是引入模块的一个语法糖，用于引入模块，本案例中引入 http 模块
 
     home.js执行文件
 
@@ -218,15 +219,25 @@ serve.listen(3000);
 
 2、内置模块；
 
-nodejs内置模块有：Buffer，C/C++Addons，Child Processes，Cluster，Console，Cr
+nodejs内置模块(官方模块):
+不需要下载或者定义，就存在于 nodejs 里，即安装nodejs 就已经把这个模块安装上了
 
-ypto，Debugger，DNS，Domain，Errors，Events，File System，
+nodejs内置模块有：
+Buffer，C/C++Addons，Child Processes，Cluster，Console，Crypto，Debugger，DNS，Domain，Errors，Events，File System，
+Globals，HTTP，HTTPS，Modules，Net，OS，Path，Process，P unycode，Query Strings，Readline，REPL，Stream，String De coder，Timers，TLS/SSL，TTY，UDP/Datagram，URL， Utilities，V8，VM，ZLIB 等；内置模块不需要安装，外置模块需要安装；
+更多模块可查看nodejs官网
 
-Globals，HTTP，HTTPS，Modules，Net，OS，Path，Process，P unycode，Query Strings，Readline，REPL，Stream，String De coder，Timers，TLS/SSL，TTY，UDP/Datagram，URL， Utilities，V8，VM，ZLIB；内置模块不需要安装，外置模块需要安装；
+3、第三方模块
+node_modules
+node 提供只有专门的文件夹 node_modules 去管理第三方模块，当然自定义模块也可以放进去，通常自定义的模块放在项目文件或文件夹中，第三方模块放到node_modules里，每个模块中都会有自己的package.json 文件
+原则：从当前文件夹向外层文件夹查找，一直找到系统根目录（npm root -g），直到找到，
 
 
 
 ### npm包管理器
+
+第三方模块通过npm下载，也可以上传自己的模块到npm官网上供别人下载
+npm 存在于node中，安装node时，npm 也会一并安装上
 
 NPM(Node Package Manager)  官网的地址是 [npm官网](https://www.npmjs.com)	
 
@@ -235,16 +246,23 @@ NPM(Node Package Manager)  官网的地址是 [npm官网](https://www.npmjs.com)
   - npm help(npm -h) ：查看npm帮助信息
   - npm version (npm -v) : 查看npm版本；
   - npm search：查找
-  - npm install (npm i)：安装  默认在当前目录，如果没有node_modules 会创建文件夹；
-    - npm install module_name -S 或者--save    即    npm install module_name --save    写入dependencies
+  - npm install (npm i)：安装  默认在当前目录，如果没有node_modules 会创建文件夹, 新版本默认会加上 --save
+    - npm install module_name -S 或者--save 即  npm install module_name --save  写入dependencies
     - npm install module_name -D  或者 —save-dev   即    npm install module_name --save-dev 写入devDependencies
-    - npm install module_name -g 全局安装(命令行使用)
+    - npm install module_name -g 全局安装(命令行使用)， 即安装到 系统根目录（npm root -g）
     - 指定版本安装模块   npm i module_name @1.0 通过  "@"符号指定；
+  - npm uninstall module_name 
   - npm update(npm -up)：更新
   - npm remove 或者  npm uninstall：删除
   - npm root  查看当前包安装的路径  或者通过  npm root -g 来查看全局安装路径；
 
-## fs模块
+package.json
+package.json 描述功能性文件：既有描述也有功能
+将需要的模块写到package.json中，可以帮助安装需要的依赖
+- dependencies: 运行（生产）依赖，不仅开发需要，生成环境也需要，如 jquery、VUE、react
+- devDependencies: 开发依赖，开发需要用，生产环境不需要，如 sass、less
+
+## fs模块（文件操作模块，内置模块）
 
 - fs是文件操作模块，所有文件操作都是有同步和异步之分，特点是同步会加上 "Sync" 如：异步读取文件  "readFile"，同步读取文件 "readFileSync"；
 

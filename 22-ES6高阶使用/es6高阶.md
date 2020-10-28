@@ -20,7 +20,7 @@
 - Proxy代理
 - 数据劫持
 - es6模块化、exports 和 import
-- AMD /CMD模块化；
+- AMD(sea.js) /CMD(require.js) 模块化；
 
 
 
