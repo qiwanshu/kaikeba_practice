@@ -28,7 +28,7 @@
   - resize 事件
   - 操作滚动条位置
     - window.scrollX、window.scrollY、window.scrollTo()
-    - document.documentElment.scrollTop、document.documentElment.scrollLeft
+    - document.documentElement.scrollTop、document.documentElement.scrollLeft
 - location 对象相关操作
   - href
   - hash 

@@ -43,6 +43,16 @@ const fs = require('fs')
 // })
 
 // 查：文件读取 fs.readFile(filename, encode, cb) 
+
+// fs.readFile('1.txt', 'utf8', (err, data) => {
+//     if(err) {
+//         return console.log(err)
+//     } else {
+//         // console.log(data)
+//         console.log(data)  
+//     }
+// })
+
 // fs.readFile('1.txt', (err, data) => {
 //     if(err) {
 //         return console.log(err)

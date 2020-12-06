@@ -1,6 +1,6 @@
-##Node.js01
+## Node.js01
 
-##<img src="assets/logo.jpg" style="float:left;width:120px;margin-top:-48px;" />
+## <img src="assets/logo.jpg" style="float:left;width:120px;margin-top:-48px;" />
 
 - 课堂目标
   - nodejs的安装及使用
@@ -354,7 +354,7 @@ package.json 描述功能性文件：既有描述也有功能
   - 乱码的处理
   - buffer转换tostring
 
-###stream流
+### stream流
 
 - stream流：流与数据处理方面密不可分
   - 流的原理

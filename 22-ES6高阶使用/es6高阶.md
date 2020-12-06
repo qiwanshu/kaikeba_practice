@@ -1,6 +1,6 @@
 ## ES6高阶
 
-##课堂主题
+## 课堂主题
 
 - 1.利用defineProperty实现数据劫持;
 
@@ -14,7 +14,7 @@
 
 - 6.AMD模块化require.js介绍；
 
-##知识点
+## 知识点
 
 - defineProperty；
 - Proxy代理
@@ -149,7 +149,7 @@ Object.defineProperty(obj,'name',{
 
 
 
-###AMD require.js
+###  AMD require.js
 
 
 
