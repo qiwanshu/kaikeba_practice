@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title 新闻列表
+        link(rel="stylesheet", href="./css/list.css")
+    body
+        div.wrap
+            ul.news-list
+                //- each val, index in listData
+                //-     li= val.id
+                each val, index in data
+                    li.news
+                        a(href='/detail?id='+val.id+'')
+                            img(src='./img/img.png' alt='')
+                        div
+                            h3
+                            a(href='javascript:;') #{val.title}
+                            .info
+                            span.tips
+                                span #{val.type}
+                                //- span 韩国
+                                //- span 逮捕
+                            // <span class="line"></span>
+                            span.time |   #{val.addtime}
+                    
+                //- li.news
+                //-     a(href='javascript:;')
+                //-         img(src='./img/img.png' alt='')
+                //-     div
+                //-         h3
+                //-         a(href='javascript:;') 18人死伤！韩国一男子纵火后持凶器伤害避险邻居
+                //-         .info
+                //-         span.tips
+                //-             span 纵火
+                //-             span 韩国
+                //-             span 逮捕
+                //-         // <span class="line"></span>
+                //-         span.time |   1小时前
+            
+            div.pagination
+                - var p = 1
+                a.prev(href='/list?p='+(p <= 1? 1: p--)+'') ⌜
+                while p <= totalPage
+                    a(href='/list?p='+p+'')= p++
+                    //- a(href='javascript:;') 1
+
+                //- a(href='javascript:;') 1
+                //- a(href='javascript:;') 2
+                //- a(href='javascript:;') 3
+                //- a(href='javascript:;') 4
+                //- a(href='javascript:;') 5
+                a.next(href=`/list?p=${p > totalPage? totalPage: p++}`) ⌝
