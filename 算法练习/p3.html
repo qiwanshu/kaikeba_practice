@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            圣诞节到了，公司举行交换礼物活动，参加的员工每人准备一个礼物，交换完成后，自己的礼物会随机给到另一个人，自己也能随机获得一个其他人准备的礼物。不要求A拿了B的礼物，B就一定要拿A的，只要自己不拿自己的即可，为公平起见，请你写一个随机程序来决定礼物如何分配。
+        */
+
+        // 删除数组中某一项操作
+        function removeByValue(arr, val) {
+        //    for(var i = 0; i < arr.length; i++) {
+        //     if(arr[i] == val) {
+        //      arr.splice(i, 1);
+        //      break;
+        //     }
+        //    }
+            let index = arr.indexOf(val)
+            // console.log(index)
+            arr.splice(index, 1);
+        }
+
+        let giftData = []
+        let handleData = [];
+
+        let originData = []
+        let originGiftData = []
+
+    //  let obj = {
+    //     name: ""
+    //  }
+
+        function giftDistribution(n) {
+            
+            for(let i = 0; i < n; i++) {
+                originGiftData.push(i)
+                originData.push({person: i, gift: i})
+            }
+            console.log(originGiftData)
+            // console.log(originGiftData)
+            
+
+            // let num = Math.random()*originData.length
+            // console.log(num)
+            // console.log(Math.floor(num))
+            // console.log(parseInt(num, 10))
+
+            // removeByValue(originGiftData, 2)
+            // console.log(originGiftData)
+            
+            originData.forEach((item, index) => {
+                let outGift  // 被挑选出来的礼物
+                // console.log(originGiftData.includes(index))
+                if(originGiftData.includes(index)) {
+                    if (originGiftData.length === 2 && originGiftData.includes(index)) {
+                        let _index = originGiftData.indexOf(index)  // 0 | 1
+                        outGift = _index === 1? originGiftData[0] : originGiftData[1]
+                    } else {
+                        removeByValue(originGiftData, index)
+                        // console.log(originGiftData)
+                        outGift = originGiftData[parseInt(Math.random()*originGiftData.length, 10)]
+                        originGiftData.push(index)
+                    }
+                    
+                    // removeByValue(originGiftData, outGift)
+
+                } else {
+                    if (originGiftData.length === 2 && originGiftData.includes(index + 1)) {
+                        let _index = originGiftData.indexOf(index + 1)  // 0 | 1
+                        outGift = _index === 1? originGiftData[1] : originGiftData[0]
+                    } else {
+                        outGift = originGiftData[parseInt(Math.random()*originGiftData.length, 10)]
+                    }
+                    
+                    // removeByValue(originGiftData, outGift)
+                }
+                // console.log(outGift)
+                removeByValue(originGiftData, outGift)
+                giftData.push(outGift)
+                
+                handleData.push({
+                    person: index,
+                    gift: outGift
+                })
+            })
+            console.log(JSON.stringify(originData))
+            console.log(JSON.stringify(handleData))
+        }
+
+        
+        
+        giftDistribution(4)
+        // console.log(giftData)
+        // console.log(handleData)
+        // 0-10
+        // let num = Math.random()*10
+        // console.log(num * 10)
+        // console.log(parseInt(Math.random()*10, 10))
+        // var items = ['1','2','4','5','6','7','8','9','10'];
+        // var item = items[Math.floor(Math.random()*items.length)];
+        // console.log(item)
+    </script>
+</body>
+</html>

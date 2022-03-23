@@ -2,12 +2,20 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const views = require('koa-views');
 const statics = require('koa-statics');
-const listData = require('./data.json');
+const mysql2 = require('mysql2'); 
+// const listData = require('./data.json');
 
 // console.log(url)
 
 const app = new Koa();
 const router = new Router();
+
+const connection = mysql2.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'qws123',
+    database: 'jssql'   // 连接的数据库
+})
 
 // app.use(views(__dirname + '/view'), {
 //     map: {
@@ -23,15 +31,23 @@ app.use(views(__dirname + '/view', {
 
 app.use(statics(__dirname+"/static"), {});
 
-router.get("/list", async(ctx, next) => {
+router.get("/", ctx => {
+    ctx.redirect("/list");  // 重定向
+});
+
+router.get("/list", async (ctx, next) => {
     // console.log(ctx.query.p)
-    let p = ctx.query.p || 1;
+    let p = parseInt(ctx.query.p) || 1;
     const pageSize = 5;
-    const totalPage = Math.ceil(listData.length/pageSize);
-    let nowData = listData.slice((p-1)*pageSize, p*pageSize);
+    // const totalPage = Math.ceil(listData.length/pageSize);
+    // let nowData = listData.slice((p-1)*pageSize, p*pageSize);
+    // console.log((p-1)*pageSize, p*pageSize)
+    const [rows] = await connection.promise().query(`SELECT * FROM news LIMIT ${(p-1)*pageSize}, ${pageSize}`)
+    // console.log(rows)
     await ctx.render("list.pug", {
-        data: nowData,
-        totalPage
+        p,
+        newData: rows,
+        totalPage: 5
     })
 })
 

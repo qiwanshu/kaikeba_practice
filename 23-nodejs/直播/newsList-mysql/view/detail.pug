@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title 新闻详情
+        //- link(rel="stylesheet", href="style.css")
+        link(rel="stylesheet", href="./css/detail.css")
+    body
+        .text
+            h1.title #{detail.title}
+            .article-info 类型：#{detail.type} 时间：#{detail.addtime}
+            p.content #{detail.detail}
